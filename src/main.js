@@ -1,4 +1,5 @@
-import './assets/main.css'
+import '../node_modules/normalize.css/normalize.css'
+import './assets/css/main.css'
 
 import { createApp } from 'vue'
 import { Vue3Mq } from "vue3-mq";

@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { MqResponsive } from "vue3-mq";
 import BurgerMenuIcon from './icons/IconBurgerMenu.vue'
+import BaseNav from './BaseNavigation.vue'
 
 const openMenu = ref(false)
 
@@ -16,42 +17,51 @@ function burgerClick() {
                   <RouterLink to="/">
                         <MqResponsive group>
                               <template #dark>
-                                    <img alt="Goooose logo" class="logo" src="@/assets/logoLight.svg" />
+                                    <img alt="Goooose logo" class="logo" src="@/assets/images/logoLight.svg" />
                               </template>
                               <template #light>
-                                    <img alt="Goooose logo" class="logo" src="@/assets/logoDark.svg" />
+                                    <img alt="Goooose logo" class="logo" src="@/assets/images/logoDark.svg" />
                               </template>
                         </MqResponsive>
                   </RouterLink>
                   <MqResponsive target="lg+">
-                        <nav class="nav">
+                        <!-- <nav class="nav">
                               <RouterLink to="/." class="navLink">О нас</RouterLink>
                               <RouterLink to="/" class="navLink">Документация</RouterLink>
                               <RouterLink to="/." class="navLink">Магазин</RouterLink>
-                        </nav>
+                        </nav> -->
+                        <BaseNav/>
                   </MqResponsive>
                   <MqResponsive target="lg+">
                         <div class="authorisation">
-                              <RouterLink to="/" class="authorisation__link authorisation__link--SignIn">Регистрация
-                              </RouterLink>
-                              <RouterLink to="/" class="authorisation__link authorisation__link--logIn">Войти</RouterLink>
+                              <RouterLink to="/signin" class="authorisation__link authorisation__link--SignIn">Регистрация</RouterLink>
+                              <RouterLink to="/login" class="authorisation__link authorisation__link--logIn">Войти</RouterLink>
                         </div>
                   </MqResponsive>
                   <MqResponsive target="xs-md" class="burgerMenu">
                         <BurgerMenuIcon @click="burgerClick" />
+                        <div @click="burgerClick" class="header__burger">
+                              <span></span>
+                        </div>
+                  </MqResponsive>
+                  <MqResponsive target="xs-md" @click="burgerClick" class="header__burger">
+                              <span></span>
                   </MqResponsive>
             </div>
+
+
             <MqResponsive target="xs-md">
                   <div v-if="openMenu" class="menuWraper">
                         <nav class="nav">
-                              <RouterLink to="/." class="navLink">О нас</RouterLink>
-                              <RouterLink to="/." class="navLink">Документация</RouterLink>
-                              <RouterLink to="/." class="navLink">Магазин</RouterLink>
+                              <RouterLink to="/about" class="navLink">О нас</RouterLink>
+                              <RouterLink to="/doc" class="navLink">Документация</RouterLink>
+                              <RouterLink to="/shop" class="navLink">Магазин</RouterLink>
                         </nav>
 
                         <div class="authorisation">
-                              <RouterLink to="/." class="authorisation__link authorisation__link--SignIn">Регистрация</RouterLink>
-                              <RouterLink to="/." class="authorisation__link authorisation__link--logIn">Войти</RouterLink>
+                              <RouterLink to="/signin" class="authorisation__link authorisation__link--SignIn">Регистрация
+                              </RouterLink>
+                              <RouterLink to="/login" class="authorisation__link authorisation__link--logIn">Войти</RouterLink>
                         </div>
                   </div>
             </MqResponsive>
@@ -74,6 +84,9 @@ function burgerClick() {
       display: flex;
       place-items: center;
       justify-content: space-around;
+}
+.header__burger{
+      display: none;
 }
 
 .logo {
@@ -116,7 +129,20 @@ function burgerClick() {
       text-decoration: none;
 }
 
-.authorisation__link--logIn::before {
+.authorisation__link--logIn {
+      display: inline-block;
+      padding: 4px 18px;
+      /* width: 150%; */
+      height: 40px;
+      /* position: absolute;
+      top: -5px;
+      left: -25%; */
+      border: 1px solid var(--color-text);
+      border-radius: 30px;
+      transition: 0.4s;
+}
+
+/* .authorisation__link--logIn::before {
       content: "";
       width: 150%;
       height: 40px;
@@ -126,35 +152,29 @@ function burgerClick() {
       border: 1px solid var(--color-text);
       border-radius: 30px;
       transition: 0.4s;
-}
+} */
 
-.authorisation__link:hover.authorisation__link--logIn::before {
+/* .authorisation__link:hover.authorisation__link--logIn::before {
+      border-color: var(--color-accent);
+} */
+.authorisation__link:hover.authorisation__link--logIn {
       border-color: var(--color-accent);
 }
 
 
-@media (max-width: 1100px) {
-      .nav {
-            width: 400px;
-      }
-
+@media (max-width: 1200px) {
+      
       .logo {
             margin-right: 15px;
       }
 
-      .navLink.router-link-exact-active::before {
-            content: "";
-            width: calc(100% + 28px);
-            position: absolute;
-            top: -4px;
-            left: -14px;
-
-      }
+      
 
       .authorisation__link {
             margin: 0 15px;
       }
 }
+
 
 @media (max-width: 991px) {
       .burgerMenu {
@@ -188,6 +208,7 @@ function burgerClick() {
 
       .nav {
             display: block;
+            width: auto;
       }
 
       .navLink {
@@ -212,9 +233,19 @@ function burgerClick() {
             margin-left: 0;
       }
 
-      .authorisation__link--logIn::before {
+      .authorisation__link--logIn {
+            padding: 6px 12px;
+      }
+
+      /* .authorisation__link--logIn::before {
             height: 44px;
             top: -7px;
+      } */
+}
+
+@media (max-width: 768px){
+      .header__burger{
+            display: block;
       }
 }
 </style>
