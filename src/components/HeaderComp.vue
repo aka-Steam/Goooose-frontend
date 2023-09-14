@@ -24,7 +24,7 @@ function burgerClick() {
                               </template>
                         </MqResponsive>
                   </RouterLink>
-                  <MqResponsive target="lg+">
+                  <MqResponsive target="md+">
                         <!-- <nav class="nav">
                               <RouterLink to="/." class="navLink">О нас</RouterLink>
                               <RouterLink to="/" class="navLink">Документация</RouterLink>
@@ -32,25 +32,25 @@ function burgerClick() {
                         </nav> -->
                         <BaseNav/>
                   </MqResponsive>
-                  <MqResponsive target="lg+">
+                  <MqResponsive target="md+">
                         <div class="authorisation">
-                              <RouterLink to="/signin" class="authorisation__link authorisation__link--SignIn">Регистрация</RouterLink>
+                              <RouterLink to="/signin" class="authorisation__link authorisation__link--SignUp">Регистрация</RouterLink>
                               <RouterLink to="/login" class="authorisation__link authorisation__link--logIn">Войти</RouterLink>
                         </div>
                   </MqResponsive>
-                  <MqResponsive target="xs-md" class="burgerMenu">
-                        <BurgerMenuIcon @click="burgerClick" />
-                        <div @click="burgerClick" class="header__burger">
+                  <!-- <MqResponsive target="xs-sm" class="burgerMenu">
+                         <BurgerMenuIcon @click="burgerClick" /> -->
+                        <!-- <div @click="burgerClick" class="header__burger">
                               <span></span>
                         </div>
-                  </MqResponsive>
-                  <MqResponsive target="xs-md" @click="burgerClick" class="header__burger">
+                  </MqResponsive> -->
+                  <MqResponsive target="xs-sm" @click="burgerClick" class="header__burger" v-bind:class="{active:openMenu}">
                               <span></span>
                   </MqResponsive>
             </div>
 
 
-            <MqResponsive target="xs-md">
+            <MqResponsive target="xs-sm">
                   <div v-if="openMenu" class="menuWraper">
                         <nav class="nav">
                               <RouterLink to="/about" class="navLink">О нас</RouterLink>
@@ -59,7 +59,7 @@ function burgerClick() {
                         </nav>
 
                         <div class="authorisation">
-                              <RouterLink to="/signin" class="authorisation__link authorisation__link--SignIn">Регистрация
+                              <RouterLink to="/signin" class="authorisation__link authorisation__link--SignUp">Регистрация
                               </RouterLink>
                               <RouterLink to="/login" class="authorisation__link authorisation__link--logIn">Войти</RouterLink>
                         </div>
@@ -79,11 +79,11 @@ function burgerClick() {
 }
 
 .header__container {
-      margin: 0 12px;
+      margin: 0 32px;
       height: 80px;
       display: flex;
       place-items: center;
-      justify-content: space-around;
+      justify-content: space-between;
 }
 .header__burger{
       display: none;
@@ -91,15 +91,16 @@ function burgerClick() {
 
 .logo {
       display: block;
+       margin-right: 15px;
       width: 260px;
-      height: 51px;
+      /* height: 51px; */
 }
 
-.nav {
+/* .nav {
       width: calc(clamp(424px, calc(0px + 100vw * 0.3), 571px));
       display: flex;
       justify-content: space-between;
-}
+} */
 
 .navLink {
       margin: 0 8px;
@@ -124,16 +125,18 @@ function burgerClick() {
 }
 
 .authorisation__link {
-      margin: 0 19px;
       position: relative;
       text-decoration: none;
 }
 
+.authorisation__link--SignUp{
+      margin: 0 19px;
+}
 .authorisation__link--logIn {
       display: inline-block;
       padding: 4px 18px;
       /* width: 150%; */
-      height: 40px;
+      /*height: 40px;
       /* position: absolute;
       top: -5px;
       left: -25%; */
@@ -163,20 +166,50 @@ function burgerClick() {
 
 
 @media (max-width: 1200px) {
-      
+      .header {
+      font-size: 18px;
+}
+      .header__container{
+            height: 70px;
+            margin: 0 24px;
+           
+      }
       .logo {
-            margin-right: 15px;
+            width: 220px;
       }
 
       
 
-      .authorisation__link {
+      .authorisation__link--SignUp {
             margin: 0 15px;
       }
 }
 
+@media (max-width: 991px) 
+{
+      .header{
+            font-size: 16px;
+      }
 
-@media (max-width: 991px) {
+      .header__container{
+ 
+            height: 60px;
+    
+            margin: 0 12px;
+      }
+      .logo{
+            width: 140px;
+      }
+
+      .authorisation__link--SignUp{
+            margin-right: 8px;
+      }
+      .authorisation__link--logIn{
+            padding: 4px 12px;
+      }
+}
+
+/* @media (max-width: 991px) {
       .burgerMenu {
             height: 44px;
       }
@@ -229,7 +262,7 @@ function burgerClick() {
             height: 44px;
       }
 
-      .authorisation__link--SignIn {
+      .authorisation__link--SignUp {
             margin-left: 0;
       }
 
@@ -240,12 +273,81 @@ function burgerClick() {
       /* .authorisation__link--logIn::before {
             height: 44px;
             top: -7px;
-      } */
-}
+      } 
+} */
 
 @media (max-width: 768px){
+      
+      
+      .header__container {
+      margin: 0 10px;
+            height: 52px;
+      }
+      /* .logo {
+            width: 200px;
+      } */
       .header__burger{
             display: block;
+            position: relative;
+            width: 40px;
+            height: 40px;
       }
+
+      .header__burger span{
+            display: block;
+            
+            margin-left: auto;
+margin-right: auto;
+            width: 88%;
+            height: 2px;
+            position:absolute;      
+            left:0;
+            right: 0;
+text-align: center;
+            top: calc(50% - 1px);
+            background-color: var(--color-text);
+            transition: all 0.3s;
+      }
+
+      .header__burger::before,
+      .header__burger::after{
+            content:'';
+            width: 88%;
+            height: 2px;
+            margin-left: auto;
+margin-right: auto;
+            position: absolute;
+            left: 0;
+            right: 0;
+text-align: center;
+            background-color: var(--color-text);  
+            transition: all 0.3s;
+      }
+
+      .header__burger::before{
+            top:24%;
+      }
+      .header__burger::after{
+            bottom: 24%;
+      }
+
+.header__burger.active span {
+      opacity: 0;
+      transform: scale(0);
+}
+      .header__burger.active::before{
+            transform: rotate(45deg);
+            top: calc(50% - 1px);
+      }
+      .header__burger.active::after{
+            transform: rotate(-45deg);
+            bottom: calc(50% - 1px);
+      }
+      /* net bios smp - стек протоколов microsoft  */
+      
+
+
+
+
 }
 </style>
