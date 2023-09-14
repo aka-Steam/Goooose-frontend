@@ -4,7 +4,7 @@
       <nav class="nav">
             <ul class="nav-list">
                   <li class="nav-list__item">
-                        <RouterLink to="/about" class="nav-link">О нас</RouterLink>
+                        <RouterLink to="/about" class="nav-link">О нас</RouterLink>     
                   </li>
                   <li class="nav-list__item">
                         <RouterLink to="/doc" class="nav-link">Документация</RouterLink>
@@ -16,39 +16,37 @@
       </nav>
 </template>
 
-<style>
+<style scoped>
 .nav {
-      width: calc(clamp(445px, calc(0px + 100vw * 0.3), 576px));
-      /* width: calc(clamp(424px, calc(0px + 100vw * 0.3), 571px)); */
-      
-      /* display: flex;
-      justify-content: space-between; */
+      width: calc(clamp(449px, calc(0px + 100vw * 0.3), 576px));
 }
 
 .nav-list {
       padding: 0;
       width: 100%;
       list-style: none;
+}
+
+.nav.horisontal .nav-list {
       display: flex;
       justify-content: space-between;
 }
 
+.nav.vertical .nav-list {
+      display: block;
+}
+
 .nav-list__item {
-      
       list-style: none;
 }
 
 .nav-link {
       display: inline-block;
-      /* margin: 0 8px; */
+       padding: 4px 18px;
       position: relative;
-      text-decoration: none;
-
-      padding: 4px 18px;
-      /* padding: 4px 8px; */
-      /* height: 40px; */
       border-radius: 30px;
-
+      border: 1px solid transparent;
+      text-decoration: none;
       transition: 0.4s;
 }
 
@@ -60,51 +58,18 @@
       border-color: var(--color-accent);
 }
 
-/* .nav-link:hover.router-link-exact-active::before {
-      
-      border-color: var(--color-accent);
-}
-.nav-link.router-link-exact-active::before {
-      content: "";
-      width: calc(100% + 40px);
-      height: 40px;
-      position: absolute;
-      top: -4px;
-      left: -20px;
-      border: 1px solid var(--color-text);
-      border-radius: 30px;
-      transition: 0.4s;
-} */
-
 @media (max-width: 1200px) {
-      .nav-link:hover.router-link-exact-active::before {
-            border-color: var(--color-accent);
-      }
-
       .nav {
-            /* width: 400px; */
-            width: calc(clamp(418px, calc(0px + 100vw * 0.3), 445px));
+            width: calc(clamp(420px, calc(0px + 100vw * 0.3), 445px));
       }
 
       .nav-link{
             padding: 4px 14px;
-      }
-
-      .nav-link.router-link-exact-active::before {
-            content: "";
-            width: calc(100% + 28px);
-            position: absolute;
-            top: -4px;
-            left: -14px;
-
-      }
-
-      
-      
+      }    
 }
-@media (max-width: 992px){
+@media (max-width: 991px){
       .nav{
-            width: 356px;
+            width: 366px;
       }
       .nav-link{
             padding: 4px 12px;
@@ -112,6 +77,21 @@
 
 }
 @media (max-width: 768px){
-      
+      /* Увеличиваем облась клика ссылки до общепринятых значений в 40px*/
+      .nav-list__item {
+            display: flex;
+            align-items: center;
+            height: 40px;
+      }
+      .nav-link::before{
+            content:'';
+            margin: auto;
+            width: calc(100vw - 60px);
+            height: 40px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+      }
 }
 </style>
