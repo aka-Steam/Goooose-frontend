@@ -1,20 +1,28 @@
 :root {
-  /*Layout colors*/
-  --color-background: #ffffff;
-  --color-background-header: #ffffff;
+  /*Common colors*/
+  --color-light: #FFFFFF;
+  --color-darck:#0F0F0F;
+  --color-darck2: #1F1E2E;
   --color-accent: #FF7A00;
+  --color-accent2: #D93535;
 
+  /*Layout colors*/
+  --color-background: #FFFFFF;
+  --color-background-header: #FFFFFF;
+  --color-background-footer:#0F0F0F;
+  --color-background-dashboard:#E7E7E7;
+  
   /*Text colors*/
-  --color-text: #171918;
-  --color-text-link: #171918;
+  --color-text: #1F1E2E;
+  --color-text-light: #FFFFFF;
+  --color-text-dark: #1F1E2E;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #403d4a;
-    --color-background-header: #000002;
-    /*this is a test version*/
-    --color-text: #ffffff;
+    --color-background: #403d4a;/*this is a test version*/
+    --color-background-header: #0F0F0F;
+    --color-text: #FFFFFF;
   }
 }
 
