@@ -1,0 +1,37 @@
+@import './base.css';
+
+#app {
+  padding-top: 70px;
+  font-weight: normal;
+}
+
+a{
+  color: var(--color-text);
+  transition: 0.4s;
+}
+
+@media (hover: hover) { 
+  a:hover {
+    color: var(--color-accent);
+  }
+} 
+
+@media (max-width: 991px) {
+  #app {
+    padding-top: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  #app {
+    padding-top: 52px;
+  }
+  .click-area-wrapper{
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}
