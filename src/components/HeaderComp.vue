@@ -28,7 +28,7 @@ function burgerClick() {
                   </MqResponsive>
                   <MqResponsive target="md+">
                         <div class="authorisation">
-                              <RouterLink to="/signin" class="authorisation__link authorisation__link--sign-up">Регистрация
+                              <RouterLink to="/signup" class="authorisation__link authorisation__link--sign-up">Регистрация
                               </RouterLink>
                               <RouterLink to="/login" class="authorisation__link authorisation__link--log-in">Войти
                               </RouterLink>
@@ -44,7 +44,7 @@ function burgerClick() {
                   <div class="vertical-menu-container" v-bind:class="{ active: openMenu }">
                         <BaseNav class="vertical" />
                         <div class="authorisation">
-                              <RouterLink to="/signin" class="authorisation__link authorisation__link--sign-up">
+                              <RouterLink to="/signup" class="authorisation__link authorisation__link--sign-up">
                                     Регистрация
                               </RouterLink>
                               <RouterLink to="/login" class="authorisation__link authorisation__link--log-in">
