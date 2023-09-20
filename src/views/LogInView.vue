@@ -1,7 +1,67 @@
+<script>
+import { Form, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
+
+export default {
+  name: "Login",
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+  },
+
+  data() {
+    const schema = yup.object().shape({
+      username: yup.string().required("Username is required!"),
+      password: yup.string().required("Password is required!"),
+    });
+
+    return {
+      loading: false,
+      message: "",
+      schema,
+    };
+  },
+
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
+
+  created() {
+    if (this.loggedIn) {
+      this.$router.push("/home");
+    }
+  },
+
+  methods: {
+    handleLogin(user) {
+      this.loading = true;
+
+      this.$store.dispatch("auth/login", user).then(
+        () => {
+          this.$router.push("/home");
+        },
+        (error) => {
+          this.loading = false;
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }
+      );
+    },
+  },
+};
+</script>
+
 <template>
       <main class="main">
             <section class="section-authorization">
-                  <form id="form-login" action="#" method="post" class="form">
+                  <!-- <form id="form-login" action="#" method="post" class="form">
                         <h1 class="form__title">Войдите в систему</h1>
                         <div class="form__group">
                               <label for="login-email" class="form__label">Имя пользователя</label>
@@ -26,7 +86,35 @@
                               <span class="form__note">Нет учетной записи?&nbsp;</span>
                               <RouterLink to="/signup" class="form__link open-registration-form-but">Регистрация</RouterLink>
                         </div>
-                  </form>
+                  </form> -->
+                  <Form @submit="handleLogin" :validation-schema="schema">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <Field name="username" type="text" class="form-control" />
+          <ErrorMessage name="username" class="error-feedback" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <Field name="password" type="password" class="form-control" />
+          <ErrorMessage name="password" class="error-feedback" />
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" :disabled="loading">
+            <span
+              v-show="loading"
+              class="spinner-border spinner-border-sm"
+            ></span>
+            <span>Login</span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <div v-if="message" class="alert alert-danger" role="alert">
+            {{ message }}
+          </div>
+        </div>
+      </Form>
             </section>
       </main>
 </template>
