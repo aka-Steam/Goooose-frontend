@@ -7,11 +7,49 @@ ymaps.ready(init);
             // Порядок по умолчанию: «широта, долгота».
             // Чтобы не определять координаты центра карты вручную,
             // воспользуйтесь инструментом Определение координат.
-            center: [55.76, 37.64],
+            center: [54.139388, 45.193018
+],
             // Уровень масштабирования. Допустимые значения:
             // от 0 (весь мир) до 19.
-            zoom: 7
+            zoom: 12
+        }),
+        
+        myPieChart = new ymaps.Placemark([
+        54.139388, 45.193018
+        ], {
+            // Данные для построения диаграммы.
+            data: [
+                {weight: 8, color: '#0E4779'},
+                {weight: 6, color: '#1E98FF'},
+                {weight: 4, color: '#82CDFF'}
+            ],
+            iconCaption: "Диаграмма"
+        }, {
+            // Зададим произвольный макет метки.
+            iconLayout: 'default#pieChart',
+            // Радиус диаграммы в пикселях.
+            iconPieChartRadius: 30,
+            // Радиус центральной части макета.
+            iconPieChartCoreRadius: 10,
+            // Стиль заливки центральной части.
+            iconPieChartCoreFillStyle: '#ffffff',
+            // Cтиль линий-разделителей секторов и внешней обводки диаграммы.
+            iconPieChartStrokeStyle: '#ffffff',
+            // Ширина линий-разделителей секторов и внешней обводки диаграммы.
+            iconPieChartStrokeWidth: 3,
+            // Максимальная ширина подписи метки.
+            iconPieChartCaptionMaxWidth: 200
         });
+
+    myMap.geoObjects
+        .add(myPieChart)
+        .add(new ymaps.Placemark([54.119388, 45.175018], {
+            balloonContent: 'цвет <strong>детской неожиданности</strong>'
+        }, {
+            preset: 'islands#circleDotIcon',
+            iconColor: '#FF7A00',
+            iconFillStyle: '#000000'
+        }));
     }
 </script>
 <template>
@@ -25,7 +63,7 @@ ymaps.ready(init);
 }
 #map{
       width:calc(clamp(320px, calc(100vw - 50px), 1920px));
-      height:calc(clamp(320px, calc(100vh - 32px), 800px));
+      height:calc(clamp(320px, calc(100vh - 102px), 800px));
       border-radius: 20px;
       overflow: hidden;
 }
