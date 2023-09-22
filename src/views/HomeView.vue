@@ -1,6 +1,7 @@
-<!-- <script setup>
+ <script setup>
 // import TheWelcome from '../components/TheWelcome.vue'
-</script> -->
+import Menu from '../components/SidebarMenu.vue'
+</script> 
 <script>
 export default {
   name: 'Profile',
@@ -19,10 +20,11 @@ export default {
 
 <template>
   <main>
+    <Menu></Menu>
     <!-- Здесь будет список устройств и сетей -->
     <div style="margin: 20px; text-align: center; color:var(--color-text);">Home (dashboard) page</div>
     <hr>
-<!-- test -->
+    <!-- test -->
     <div class="container">
     <header class="jumbotron">
       <h3>
@@ -31,7 +33,7 @@ export default {
     </header>
     <p>
       <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
+      <!-- {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}  -->
     </p>
     <p>
       <strong>Id:</strong>

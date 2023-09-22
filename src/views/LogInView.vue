@@ -61,18 +61,20 @@ export default {
 <template>
       <main class="main">
             <section class="section-authorization">
-                  <!-- <form id="form-login" action="#" method="post" class="form">
+                  <Form @submit="handleLogin" :validation-schema="schema">
                         <h1 class="form__title">Войдите в систему</h1>
                         <div class="form__group">
-                              <label for="login-email" class="form__label">Имя пользователя</label>
+                              <label for="login-username" class="form__label">Имя пользователя</label>
                               <div class="form__input-container">
-                                    <input type="email" name="email" id="login-email" class="form__input">
+                                    <Field type="text" name="username" id="login-username" class="form__input"/>
+                                    <ErrorMessage name="username" class="error-feedback" />
                               </div>
                         </div>
                         <div class="form__group">
                               <label for="logi-pass" class="form__label">Пароль</label>
                               <div class="form__input-container">
-                                    <input type="password" name="pass" id="login-pass" class="form__input">
+                                    <Field type="password" name="password" id="login-pass" class="form__input"/>
+                                    <ErrorMessage name="password" class="error-feedback" />
                               </div>
                         </div>
                         <div class="form__group">
@@ -86,8 +88,13 @@ export default {
                               <span class="form__note">Нет учетной записи?&nbsp;</span>
                               <RouterLink to="/signup" class="form__link open-registration-form-but">Регистрация</RouterLink>
                         </div>
-                  </form> -->
-                  <Form @submit="handleLogin" :validation-schema="schema">
+                        <div class="form__group">
+          <div v-if="message" class="alert alert-danger" role="alert">
+            {{ message }}
+          </div>
+        </div>
+                  </Form>
+                  <!-- <Form @submit="handleLogin" :validation-schema="schema">
         <div class="form-group">
           <label for="username">Username</label>
           <Field name="username" type="text" class="form-control" />
@@ -107,19 +114,15 @@ export default {
             ></span>
             <span>Login</span>
           </button>
-        </div>
+        </div> 
 
-        <div class="form-group">
-          <div v-if="message" class="alert alert-danger" role="alert">
-            {{ message }}
-          </div>
-        </div>
-      </Form>
+      
+      </Form>-->
             </section>
       </main>
 </template>
 
-<style scope>
+<style scoped>
       .section-authorization {
             display: flex;
             justify-content: center;    
@@ -242,5 +245,10 @@ export default {
             display: inline-block;
             line-height: normal;
       }
+
+      .error-feedback{
+      color: var(--color-accent2);
+      font-size: 0.8rem;
+}
 
 </style>
