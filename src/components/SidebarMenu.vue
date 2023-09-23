@@ -1,5 +1,6 @@
 <script setup>
 import { MqResponsive } from "vue3-mq";
+import store from '../storage'
 </script>
 <template>
       <section class="sidebar-menu">
@@ -28,9 +29,14 @@ import { MqResponsive } from "vue3-mq";
                               <li>
                                     <RouterLink to="/shop">Магазин</RouterLink>
                               </li>
-
                         </ul>
                   </nav>
+                  
+                  <div class="developer-operations">
+                        <div>developer operations</div>
+                        <button @click="console.log(store)">Show veux storage</button>                       
+                  </div>
+
                   <div class="profile">
                         <RouterLink to="/profile">Профиль</RouterLink>
                   </div>
@@ -64,6 +70,7 @@ import { MqResponsive } from "vue3-mq";
        height: 44px;
  }
 
+
  .nav,
  .profile{
 background-color: var(--color-sidebar-foreground);
@@ -77,4 +84,15 @@ background-color: var(--color-sidebar-foreground);
       margin-top: 30px;
       border-radius: 40px;
  }
+
+ .developer-operations{
+      background-color: var(--color-sidebar-foreground);
+      padding: 20px auto;
+      margin-top: 30px;
+      border-radius: 40px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+ }
+
 </style>

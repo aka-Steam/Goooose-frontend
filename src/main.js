@@ -5,7 +5,7 @@ import { createApp } from 'vue'
 import { Vue3Mq } from "vue3-mq";
 import App from './App.vue'
 import router from './router'
-import store from "./store";
+import store from "./storage";
 
 const app = createApp(App)
 

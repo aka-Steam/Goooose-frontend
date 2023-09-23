@@ -4,6 +4,8 @@
 // - login(): ОТПРАВЬТЕ {имя пользователя, пароль} и сохраните JWT в локальном хранилище
 // - logout(): удалить JWT из локального хранилища
 // - register(): POST {имя пользователя, электронная почта, пароль}
+// - refresh():
+// - getUser():
 
 import axios from 'axios';
 import authHeader from './auth-header';
@@ -46,8 +48,15 @@ class AuthService {
       password_confirmation: user.password_confirmation
     });
   }
+ 
+  // refresh(){
+  //   return axios.post(API_URL + 'refresh', {
+  // });
+  // }
 
-  
+  // getUser() {
+  //   return axios.get(API_URL + 'user', null, { headers: authHeader() });
+  // }
 }
 
 export default new AuthService();

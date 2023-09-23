@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LendingView from '../views/LendingView.vue'
-const Profile = () => import("../views/ProfileView.vue")
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,15 +37,16 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/LogInView.vue')
     },
+    //Dashboard page
     {
       path: '/home',
       name: 'home',
-      component: () => import('../views/HomeView.vue')
+      component: () => import('../views/dashboardViews/HomeView.vue')
     },
     {
       path: '/profile',
       name: 'profile',
-      component: Profile
+      component: () => import('../views/dashboardViews/ProfileView.vue')
     }
   ]
 })

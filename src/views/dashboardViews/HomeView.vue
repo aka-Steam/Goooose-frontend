@@ -1,6 +1,6 @@
  <script setup>
 // import TheWelcome from '../components/TheWelcome.vue'
-import Menu from '../components/SidebarMenu.vue'
+import Menu from '../../components/SidebarMenu.vue'
 </script> 
 <script>
 export default {
