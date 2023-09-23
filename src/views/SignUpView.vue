@@ -1,4 +1,9 @@
     
+<script setup>
+import HeaderComp from '../components/HeaderComp.vue';
+import FooterComp from '../components/Footer.vue';
+</script>
+
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
@@ -43,7 +48,7 @@ export default {
       },
       mounted() {
             if (this.loggedIn) {
-                  this.$router.push("/login");
+                  this.$router.push("/home");
             }
       },
       methods: {
@@ -75,6 +80,7 @@ export default {
 </script>
 
 <template>
+      <HeaderComp /> 
       <main class="main">
             <section class="section-registration">
                   <Form @submit="handleRegister" :validation-schema="schema" class="form">
@@ -162,6 +168,7 @@ export default {
 
             </section>
       </main>
+      <FooterComp/>
 </template>
 
 <style scoped>
@@ -312,5 +319,11 @@ export default {
 .error-feedback{
       color: var(--color-accent2);
       font-size: 0.8rem;
+}
+.alert-danger{
+      color: var(--color-accent2);
+}
+.alert-success{
+      color: var(--color-accent);
 }
 </style>

@@ -10,6 +10,7 @@ main{
 }
 
 a{
+  cursor: pointer;
   color: var(--color-text);
   transition: 0.4s;
 }

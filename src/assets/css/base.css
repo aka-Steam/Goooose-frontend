@@ -16,6 +16,11 @@
   --color-text: #1F1E2E;
   --color-text-light: #FFFFFF;
   --color-text-dark: #1F1E2E;
+
+  /*Sidebar colors*/
+  --color-sidebar-background:#FFFFFF;
+  --color-sidebar-middleground :#CECDD2;
+  --color-sidebar-foreground:#FFFFFF;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,6 +28,10 @@
     --color-background: #403d4a;/*this is a test version*/
     --color-background-header: #0F0F0F;
     --color-text: #FFFFFF;
+
+    --color-sidebar-background:#1F1E2E;
+    --color-sidebar-middleground :#3A3948;
+    --color-sidebar-foreground:#0F0F0F;
   }
 }
 
