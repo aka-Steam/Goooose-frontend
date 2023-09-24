@@ -6,7 +6,15 @@ const API_URL = 'http://95.163.230.29/api/v1/device';
 
 class DeviceService {
   getDevices() {
-    return axios.get(API_URL,null,{headers: authHeader()});
+    return axios
+    .get(API_URL,{headers: authHeader()})
+    .then(response => {
+      if (response.status == 200) {
+        console.log(response.data); 
+        localStorage.setItem('devices', JSON.stringify(response.data));          
+      }
+      return response.data;
+    })
   }
  
   setDevice(id){

@@ -1,6 +1,7 @@
 <script setup>
 import { MqResponsive } from "vue3-mq";
-import store from '../storage'
+import store from '../storage';
+import devices from '../services/device.service.js'
 </script>
 <template>
       <section class="sidebar-menu">
@@ -18,10 +19,10 @@ import store from '../storage'
                   <nav class="nav">
                         <ul>
                               <li>
-                                    <RouterLink to="/home">Гланая</RouterLink>
+                                    <RouterLink to="/home" @click = "devices.getDevices">Гланая</RouterLink>
                               </li>
                               <li>
-                                    <RouterLink to="/">Карта</RouterLink>
+                                    <RouterLink to="/map" @click = "devices.getDevices" >Карта</RouterLink>
                               </li>
                               <li>
                                     <RouterLink to="/doc">Документация</RouterLink>
@@ -34,7 +35,8 @@ import store from '../storage'
                   
                   <div class="developer-operations">
                         <div>developer operations</div>
-                        <button @click="console.log(store)">Show veux storage</button>                       
+                        <button @click="console.log(store)">Show veux storage</button>    
+                        <button @click = "devices.getDevices">getDevices</button>                 
                   </div>
 
                   <div class="profile">

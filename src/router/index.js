@@ -47,6 +47,11 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: () => import('../views/dashboardViews/ProfileView.vue')
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: () => import('../views/dashboardViews/MapView.vue')
     }
   ]
 })
