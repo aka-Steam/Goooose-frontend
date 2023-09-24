@@ -83,7 +83,8 @@ ymaps.ready(init);
       padding: 16px;
 }
 #map{
-      width:calc(clamp(320px, calc(100vw - 150px), 1400px));
+      /* width:calc(clamp(320px, calc(100vw - 150px), 1400px)); */
+      width: auto;
       height:calc(clamp(320px, calc(100vh - 102px), 800px));
       border-radius: 20px;
       overflow: hidden;

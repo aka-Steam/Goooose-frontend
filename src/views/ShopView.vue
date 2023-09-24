@@ -4,7 +4,7 @@ import FooterComp from '../components/Footer.vue';
 </script>
 <template>
       <HeaderComp /> 
-      <main>
+      <main class="main">
             <div style="margin: 20px; text-align: center; color:var(--color-text);">Shop page</div>
             <hr>
             <img src="../assets/images/UnderConstruction.png" alt="Under construction"

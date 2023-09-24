@@ -27,9 +27,10 @@ export default {
 </script>
 
 <template>
-  <main>
+  <main class="dashboard-main">
     <Menu></Menu>
-    <div style="margin: 20px; text-align: center; color:var(--color-text);">Profile page</div>
+    <section class="dashboard-content">
+      <div style="margin: 20px; text-align: center; color:var(--color-text);">Profile page</div>
     <hr>
 
 
@@ -60,15 +61,12 @@ export default {
       </div>
       
     </div>
-
+    </section>
+  
   </main>
 </template>
 
 <style scoped>
-  main {
-    margin-left: 300px;
-  }
-
   .container {
     margin-top: 30px;
   }

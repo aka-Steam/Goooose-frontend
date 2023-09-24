@@ -19,19 +19,20 @@ export default {
 </script>
 
 <template>
-  <main>
+  <main class="dashboard-main">
     <Menu></Menu>
-    <!-- Здесь будет список устройств и сетей -->
-    <div style="margin: 20px; text-align: center; color:var(--color-text);">Home (dashboard) page</div>
+    <section class="dashboard-content">
+ <!-- Здесь будет список устройств и сетей -->
+ <div style="margin: 20px; text-align: center; color:var(--color-text);">Home (dashboard) page</div>
     <hr>
     <!-- test -->
    
 
     <!-- <TheWelcome /> -->
+    </section>
+   
   </main>
 </template>
 <style scoped>
-main {
-  margin-left: 300px;
-}
+
 </style>

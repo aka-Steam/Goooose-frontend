@@ -49,11 +49,12 @@ import devices from '../services/device.service.js'
 
 <style scoped> 
 .sidebar-menu {
-       width: 260px;
-       height: 100%;
+       min-width: 300px;
+       max-width: 300px;
+       height: 100vh;
 
-       position: fixed;
-       left: 0;
+       position: sticky;
+       /* left: 0; */
        top: 0;
 
        background-color: var(--color-sidebar-background);
@@ -92,6 +93,7 @@ background-color: var(--color-sidebar-foreground);
       padding: 20px auto;
       margin-top: 30px;
       border-radius: 40px;
+      white-space: nowrap;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
