@@ -9,8 +9,8 @@
 
 import axios from 'axios';
 import authHeader from './auth-header';
-
-const API_URL = 'http://95.163.230.29/api/v1/auth/';
+// Вынести в отдельный файл c и обращатся через envirement
+const API_URL = import.meta.env.VITE_API_URL + '/auth/';
 
 class AuthService {
   login(user) {
@@ -32,7 +32,7 @@ class AuthService {
       .post(API_URL + 'logout', null, {headers: authHeader()})
       .then((res) => {
         console.log("RESPONSE RECEIVED: ", res);
-        localStorage.removeItem('user');
+        localStorage.clear();
       })
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);
