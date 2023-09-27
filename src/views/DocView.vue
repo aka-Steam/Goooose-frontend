@@ -1,14 +1,15 @@
 <script setup>
 import HeaderComp from '../components/HeaderComp.vue';
 import FooterComp from '../components/Footer.vue';
+const URL_ApiDoc = import.meta.env.VITE_API_URL_DOCUMENTATION
 </script>
 <template>
-      <HeaderComp />
+      <HeaderComp />    
       <main class="main">
             <!-- <div style="margin: 20px; text-align: center; color:var(--color-text);">Documentation page</div>
             <hr> -->
             <section class="doc-container">
-                  <a href="http://95.163.230.29/api/documentation#/Device/getDevice" target="_blanck" class="doc-item">Документация к API</a>
+                  <a :href="URL_ApiDoc" target="_blanck" class="doc-item">Документация к API</a>
             </section>
       </main>
       <FooterComp />

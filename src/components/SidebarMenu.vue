@@ -63,7 +63,7 @@ import devices from '../services/device.service.js'
 
  .sidebar-menu__middleground{
       padding: 58px 28px;
-      height: 100%;
+      /* height: 100%; */
       border-radius: 20px 0 0 0;
       background-color: var(--color-sidebar-middleground)
  }

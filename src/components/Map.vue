@@ -27,7 +27,7 @@ function init() {
             // Данные для построения диаграммы.
             balloonContent: 'цвет <strong>детской неожиданности</strong>',
             data: [
-                { weight: 8, color: '#0E4779' },
+                { weight: 14, color: '#0E4779' },
                 { weight: 6, color: '#1E98FF' },
                 { weight: 4, color: '#82CDFF' }
             ],
@@ -71,13 +71,6 @@ function init() {
 
     myMap.geoObjects
         .add(myPieChart)
-        .add(new ymaps.Placemark([54.119388, 45.175018], {
-            balloonContent: 'цвет <strong>детской неожиданности</strong>'
-        }, {
-            preset: 'islands#circleDotIcon',
-            iconColor: '#FF7A00',
-            iconFillStyle: '#000000'
-        }));
 }
 </script>
 
