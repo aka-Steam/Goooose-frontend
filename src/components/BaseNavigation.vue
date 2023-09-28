@@ -47,6 +47,7 @@
       border-radius: 30px;
       border: 1px solid transparent;
       text-decoration: none;
+      white-space: nowrap;
       transition: 0.4s;
 }
 

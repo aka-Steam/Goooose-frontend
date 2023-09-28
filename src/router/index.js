@@ -36,6 +36,22 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/LogInView.vue')
+    },
+    //Dashboard page
+    {
+      path: '/home',
+      name: 'home',
+      component: () => import('../views/dashboardViews/HomeView.vue')
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/dashboardViews/ProfileView.vue')
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: () => import('../views/dashboardViews/MapView.vue')
     }
   ]
 })

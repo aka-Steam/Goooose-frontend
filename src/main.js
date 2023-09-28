@@ -5,11 +5,13 @@ import { createApp } from 'vue'
 import { Vue3Mq } from "vue3-mq";
 import App from './App.vue'
 import router from './router'
+import store from "./storage";
 
 const app = createApp(App)
 
 app.use(router)
-app.use(Vue3Mq,{
+app.use(store)
+app.use(Vue3Mq,{  
       preset: 'bootstrap5'
 })
 
