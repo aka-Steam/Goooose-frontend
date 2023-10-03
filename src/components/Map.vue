@@ -1,4 +1,5 @@
-<script setup>
+<script>
+// import DeviceService from '../services/device.service'
 // const coords = getCoords();
 // function getCoords(){
 //     let device = JSON.parse(localStorage.getItem('devices'));    
@@ -6,6 +7,35 @@
 //     console.log(coords);
 //     return coords;
 // }
+
+import { mapActions, mapGetters } from 'vuex';
+
+export default {
+    name: "Map",
+    data() {
+        return{
+            // devices:[...]
+        }
+    },
+    methods: {
+        ...mapActions([
+            'GET_DEVICES_FROM_API'
+        ])
+    }, 
+    mounted() {
+        this.GET_DEVICES_FROM_API()
+        .then((response) => {
+            if (response.data){
+                console.log('Data arrived!')
+            }
+        })
+    }, 
+    computed: {
+        ...mapGetters([
+            'DEVICES'
+        ])
+    }
+}
 
 ymaps.ready(init);
 function init() {
@@ -48,8 +78,14 @@ function init() {
             // Максимальная ширина подписи метки.
             iconPieChartCaptionMaxWidth: 200
         });
+        
+    // let devices = JSON.parse(localStorage.getItem('devices'));
+    console.log('------------');
+    let devices = Map.DEVICES;
+    console.log(devices);
+   
 
-    let devices = JSON.parse(localStorage.getItem('devices'));
+    console.log('------------');
     if(devices != null){
         devices.data.forEach(data => {
         data.items.forEach(item => {
@@ -79,6 +115,8 @@ function init() {
             iconFillStyle: '#000000'
         }));
 }
+
+
 </script>
 
 <template>
