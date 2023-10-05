@@ -8,7 +8,9 @@
 //     return coords;
 // }
 
+import axios from 'axios';
 import { mapActions, mapGetters } from 'vuex';
+import authHeader from '../services/auth-header'
 
 export default {
     name: "Map",
@@ -38,7 +40,7 @@ export default {
 }
 
 ymaps.ready(init);
-function init() {
+async function init() {
     // Создание карты.
     var myMap = new ymaps.Map("map", {
         // Координаты центра карты.
@@ -81,8 +83,21 @@ function init() {
         
     // let devices = JSON.parse(localStorage.getItem('devices'));
     console.log('------------');
-    let devices = Map.DEVICES;
-    console.log(devices);
+    
+    // let devices = Map.DEVICES;
+    const API_URL = import.meta.env.VITE_API_URL + '/device';
+    let devices = axios
+    .get(API_URL,{headers: authHeader()})
+    .then(response => {
+      if (response.status == 200) {
+        console.log(response.data); 
+        localStorage.setItem('devices', JSON.stringify(response.data));          
+      }
+      return response.data;
+    })
+
+    const { foo, bar }  = await devices.then(result => result.data);
+    console.log(foo);
    
 
     console.log('------------');
