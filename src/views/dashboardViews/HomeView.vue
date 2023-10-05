@@ -35,7 +35,7 @@ const openItems = ref(new Array(devices.length).fill(false))
                                                             <input type="checkbox"> class="toggle__input"
                                                             <!-- <input type="checkbox" <?= $user['automode'] ?> class="toggle__input" -->
                                                             onclick="autoModClick(this)">
-                                                            <img src="img/valve.svg" alt="valve" class="autoValve">
+                                                            <!-- <img src="img/valve.svg" alt="valve" class="autoValve"> -->
                                                             <span class="toggle__slider">
 
                                                             </span>

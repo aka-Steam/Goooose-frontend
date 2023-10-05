@@ -25,6 +25,7 @@ export default {
         ])
     }, 
     mounted() {
+        //Вызывается при каждо перезагрузке
         this.GET_DEVICES_FROM_API()
         .then((response) => {
             if (response.data){
@@ -80,28 +81,23 @@ async function init() {
             // Максимальная ширина подписи метки.
             iconPieChartCaptionMaxWidth: 200
         });
-        
-    // let devices = JSON.parse(localStorage.getItem('devices'));
-    console.log('------------');
     
-    // let devices = Map.DEVICES;
+        
     const API_URL = import.meta.env.VITE_API_URL + '/device';
-    let devices = axios
+    
+    let DEVICES = axios
     .get(API_URL,{headers: authHeader()})
     .then(response => {
       if (response.status == 200) {
-        console.log(response.data); 
+        //console.log(response.data); 
         localStorage.setItem('devices', JSON.stringify(response.data));          
       }
       return response.data;
     })
 
-    const { foo, bar }  = await devices.then(result => result.data);
-    console.log(foo);
-   
-
-    console.log('------------');
-    if(devices != null){
+    const printDevices = async () => {
+        const devices = await DEVICES;
+        if(devices != null){
         devices.data.forEach(data => {
         data.items.forEach(item => {
             let latitude = item.data.coordinate.LATITUDE;
@@ -118,7 +114,9 @@ async function init() {
         })
     });
     };
-   
+    };
+
+    printDevices();
 
     myMap.geoObjects
         .add(myPieChart)
@@ -130,12 +128,10 @@ async function init() {
             iconFillStyle: '#000000'
         }));
 }
-
-
 </script>
 
 <template>
-    {{ coords }}
+    <!-- {{ coords }} -->
     <section class="map-container">
         <div id="map" class="map"></div>
     </section>

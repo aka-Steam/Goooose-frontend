@@ -10,7 +10,7 @@ class DeviceService {
     .get(API_URL,{headers: authHeader()})
     .then(response => {
       if (response.status == 200) {
-        console.log(response.data); 
+        //console.log(response.data); 
         localStorage.setItem('devices', JSON.stringify(response.data));          
       }
       return response.data;
