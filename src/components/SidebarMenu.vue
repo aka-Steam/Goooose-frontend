@@ -5,9 +5,10 @@ import devices from '../services/device.service.js'
 </script>
 <template>
       <section class="sidebar-menu">
-            <RouterLink to="/">
-                  <MqResponsive group class="click-area-wrapper">
-                        <template #dark>
+            <div class="logo-container">
+                  <RouterLink to="/">
+                  <MqResponsive group >
+                        <template class="sdsd" #dark>
                               <img alt="Goooose logo" class="logo" src="@/assets/images/logoLight.svg" />
                         </template>
                         <template #light>
@@ -15,6 +16,8 @@ import devices from '../services/device.service.js'
                         </template>
                   </MqResponsive>
             </RouterLink>
+            </div>
+            
             <div class="sidebar-menu__middleground">
                   <nav class="nav">
                         <ul>
@@ -60,18 +63,37 @@ import devices from '../services/device.service.js'
        background-color: var(--color-sidebar-background);
 
  }
-
- .sidebar-menu__middleground{
-      padding: 58px 28px;
-      /* height: 100%; */
-      border-radius: 20px 0 0 0;
-      background-color: var(--color-sidebar-middleground)
+ .logo-container{
+      padding: 8px 24px;
+      height: 61px;
+      position: relative;
  }
 
+ .logo-container::before{
+      content: "";
+      width: calc(100% - 20px);
+      height: 1px;
+      position: absolute ;
+      
+      left: 0;
+      bottom: 0px;
+
+      background-color: var(--color-text);
+ }
  .logo {
        width: auto;
        height: 44px;
  }
+
+ .sidebar-menu__middleground{
+      margin-top: 16px;
+      padding: 58px 28px;
+      height: calc(100vh - 60px); 
+      border-radius: 20px 0 0 0;
+      background-color: var(--color-sidebar-middleground)
+ }
+
+ 
 
 
  .nav,
