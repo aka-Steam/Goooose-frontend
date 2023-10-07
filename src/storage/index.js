@@ -16,17 +16,17 @@ const store = createStore({
   },
   actions: {
     GET_DEVICES_FROM_API({commit}) {
-    return axios
-    .get(API_URL,{headers: authHeader()})
-    .then((devices) => {
-      commit('SET_DEVICES_TO_STATE', devices.data)
-      return devices;
-    })
-    .catch((error) => {
-      console.log('все чикибрякнулось')
-      return error;
-    }
-    )
+      return axios
+      .get(API_URL,{headers: authHeader()})
+      .then((devices) => {
+        commit('SET_DEVICES_TO_STATE', devices.data)
+        return devices;
+      })
+      .catch((error) => {
+        console.log('все чикибрякнулось')
+        return error;
+      }
+      )
     }
   }, 
   getters: {

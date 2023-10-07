@@ -1,12 +1,42 @@
 <script setup>
 import { ref } from 'vue'
 import Menu from '../../components/SidebarMenu.vue'
+import { mapActions, mapGetters } from 'vuex'
+import { onPump } from '../../services/mqtt'
 
 const devices = ref(JSON.parse(localStorage.getItem('devices')))
 const openItems = ref(new Array(devices.length).fill(false))
-
 </script> 
 
+<script>
+      export default {
+    name: "Devices",
+    data() {
+        return{
+            // devices:[...]
+        }
+    },
+    methods: {
+        ...mapActions([
+            'GET_DEVICES_FROM_API'
+        ])
+    }, 
+    mounted() {
+        setInterval(() => this.GET_DEVICES_FROM_API()
+        .then((response) => {
+            if (response.data){
+                console.log('Data arrived!')
+            }
+        }), 5000);
+        
+    }, 
+    computed: {
+        ...mapGetters([
+            'DEVICES'
+        ])
+    }
+}
+</script>
 
 <template>
       <main class="dashboard-main">
@@ -29,19 +59,19 @@ const openItems = ref(new Array(devices.length).fill(false))
                                                 <div class="widget__group widget__group--watering">
 
                                                       <button class="widget__button widget__button--pump"
-                                                            onclick="onPump()">Полить</button>
+                                                            @click="onPump(device.chip_id, item.item_id)">Полить</button>
 
-                                                      <label class="toggle">
+                                                      <!-- <label class="toggle">
                                                             <input type="checkbox"> class="toggle__input"
-                                                            <!-- <input type="checkbox" <?= $user['automode'] ?> class="toggle__input" -->
+                                                            <input type="checkbox" <?= $user['automode'] ?> class="toggle__input"
                                                             onclick="autoModClick(this)">
-                                                            <!-- <img src="img/valve.svg" alt="valve" class="autoValve"> -->
+                                                            <img src="img/valve.svg" alt="valve" class="autoValve"> 
                                                             <span class="toggle__slider">
 
                                                             </span>
 
                                                             <span class="toggle__text">автомод</span>
-                                                      </label>
+                                                      </label> -->
                                                       <hr>
                                                       <div class="widget__group widget__group--sensors">
                                                             <div class="sensor">Температура воздха:
@@ -75,9 +105,15 @@ const openItems = ref(new Array(devices.length).fill(false))
                                     </article>
                               </div>
                         </div>
+                  </div>                     
+                  <div class="developer-operations">
+                        <h3>developer-operations</h3>
+                        <hr>
+                        <ul v-for="device in DEVICES.data" :key="device.id">
+                              <li>{{ device }}</li>
+                        </ul> 
                   </div>
             </section>
-
       </main>
 </template>
 <style scoped>

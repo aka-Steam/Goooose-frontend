@@ -2,6 +2,7 @@
 import { MqResponsive } from "vue3-mq";
 import store from '../storage';
 import devices from '../services/device.service.js'
+import { startConnect } from '../services/mqtt'
 </script>
 <template>
       <section class="sidebar-menu">
@@ -35,8 +36,11 @@ import devices from '../services/device.service.js'
                   
                   <div class="developer-operations">
                         <div>developer operations</div>
-                        <button @click="console.log(store)">Show veux storage</button>    
-                        <button @click = "devices.getDevices">getDevices</button>                 
+                        <button @click="console.log(store)">Show veux storage</button> 
+                        <button @click="console.log(JSON.parse(JSON.stringify(store.getters.DEVICES.data)))">Show veux devices</button>    
+                        <button @click = "devices.getDevices">getDevices</button>
+                    
+                        <button @click="startConnect">Mqtt connect</button>                 
                   </div>
 
                   <div class="profile">

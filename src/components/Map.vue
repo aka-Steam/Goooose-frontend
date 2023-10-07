@@ -1,59 +1,18 @@
-<script>
-// import DeviceService from '../services/device.service'
-// const coords = getCoords();
-// function getCoords(){
-//     let device = JSON.parse(localStorage.getItem('devices'));    
-//     let coords = device.data[0].items[0].data.coordinate;
-//     console.log(coords);
-//     return coords;
-// }
-
-import axios from 'axios';
-import { mapActions, mapGetters } from 'vuex';
-import authHeader from '../services/auth-header'
-
-export default {
-    name: "Map",
-    data() {
-        return{
-            // devices:[...]
-        }
-    },
-    methods: {
-        ...mapActions([
-            'GET_DEVICES_FROM_API'
-        ])
-    }, 
-    mounted() {
-        //Вызывается при каждо перезагрузке
-        this.GET_DEVICES_FROM_API()
-        .then((response) => {
-            if (response.data){
-                console.log('Data arrived!')
-            }
-        })
-    }, 
-    computed: {
-        ...mapGetters([
-            'DEVICES'
-        ])
-    }
-}
-
-ymaps.ready(init);
-async function init() {
-    // Создание карты.
-    var myMap = new ymaps.Map("map", {
-        // Координаты центра карты.
-        // Порядок по умолчанию: «широта, долгота».
-        // Чтобы не определять координаты центра карты вручную,
-        // воспользуйтесь инструментом Определение координат.
-        center: [54.139388, 45.193018
-        ],
-        // Уровень масштабирования. Допустимые значения:
-        // от 0 (весь мир) до 19.
-        zoom: 12
-    }),
+<script setup>
+    ymaps.ready(init);
+    function init() {
+        // Создание карты.
+        var myMap = new ymaps.Map("map", {
+            // Координаты центра карты.
+            // Порядок по умолчанию: «широта, долгота».
+            // Чтобы не определять координаты центра карты вручную,
+            // воспользуйтесь инструментом Определение координат.
+            center: [54.139388, 45.193018
+            ],
+            // Уровень масштабирования. Допустимые значения:
+            // от 0 (весь мир) до 19.
+            zoom: 12
+        }),
         myPieChart = new ymaps.Placemark([
             54.139388, 45.193018
         ], {
@@ -81,60 +40,169 @@ async function init() {
             // Максимальная ширина подписи метки.
             iconPieChartCaptionMaxWidth: 200
         });
-    
         
-    const API_URL = import.meta.env.VITE_API_URL + '/device';
-    
-    let DEVICES = axios
-    .get(API_URL,{headers: authHeader()})
-    .then(response => {
-      if (response.status == 200) {
-        //console.log(response.data); 
-        localStorage.setItem('devices', JSON.stringify(response.data));          
-      }
-      return response.data;
-    })
 
-    const printDevices = async () => {
-        const devices = await DEVICES;
+        let devices = JSON.parse(localStorage.getItem('devices'));
         if(devices != null){
-        devices.data.forEach(data => {
-        data.items.forEach(item => {
-            let latitude = item.data.coordinate.LATITUDE;
-            let longitude = item.data.coordinate.LONGITUDE;
-            // console.log(LATITUDE, LONGITUDE);
-            let point = new ymaps.Placemark([latitude, longitude], {
-                balloonContent: 'device: ' + item.name
-            }, {
-                preset: 'islands#circleDotIcon',
-                iconColor: '#FF7A00',
-                iconFillStyle: '#000000'
+            devices.data.forEach(data => {
+            data.items.forEach(item => {
+                let latitude = item.data.coordinate.LATITUDE;
+                let longitude = item.data.coordinate.LONGITUDE;
+                // console.log(LATITUDE, LONGITUDE);
+                let point = new ymaps.Placemark([latitude, longitude], {
+                    balloonContent: 'device: ' + item.name
+                }, {
+                    preset: 'islands#circleDotIcon',
+                    iconColor: '#FF7A00',
+                    iconFillStyle: '#000000'
+                })
+                myMap.geoObjects.add(point);
             })
-            myMap.geoObjects.add(point);
-        })
-    });
-    };
-    };
+        });
+        };
 
-    printDevices();
-
-    myMap.geoObjects
-        .add(myPieChart)
-        .add(new ymaps.Placemark([54.119388, 45.175018], {
-            balloonContent: 'цвет <strong>детской неожиданности</strong>'
-        }, {
-            preset: 'islands#circleDotIcon',
-            iconColor: '#FF7A00',
-            iconFillStyle: '#000000'
-        }));
-}
+        // myMap.geoObjects
+        //     .add(myPieChart)
+        //     .add(new ymaps.Placemark([54.119388, 45.175018], {
+        //         balloonContent: 'цвет <strong>детской неожиданности</strong>'
+        //     }, {
+        //         preset: 'islands#circleDotIcon',
+        //         iconColor: '#FF7A00',
+        //         iconFillStyle: '#000000'
+        //     }));
+    }
 </script>
+
+
+<script>
+// import DeviceService from '../services/device.service'
+// const coords = getCoords();
+// function getCoords(){
+//     let device = JSON.parse(localStorage.getItem('devices'));    
+//     let coords = device.data[0].items[0].data.coordinate;
+//     console.log(coords);
+//     return coords;
+// }
+
+import axios from 'axios';
+import { mapActions, mapGetters } from 'vuex';
+import authHeader from '../services/auth-header'
+import store from '../storage';
+
+export default {
+    name: "Map",
+    data() {
+        return{
+            // devices:[...]
+        }
+    },
+    methods: {
+        ...mapActions([
+            'GET_DEVICES_FROM_API'
+        ])
+    }, 
+    mounted() {
+        // setInterval(() => this.GET_DEVICES_FROM_API()
+        // .then((response) => {
+        //     if (response.data){
+        //         console.log('Data arrived!')
+        //     }
+        // }), 5000);
+        this.GET_DEVICES_FROM_API()
+        .then((response) => {
+            if (response.data){
+                console.log('Data arrived!')
+            }
+        });
+        
+    }, 
+    computed: {
+        ...mapGetters([
+            'DEVICES'
+        ])
+    }
+}
+
+
+
+
+
+// ymaps.ready(init);
+// function init() {
+//     // Создание карты.
+//     var myMap = new ymaps.Map("map", {
+//         // Координаты центра карты.
+//         // Порядок по умолчанию: «широта, долгота».
+//         // Чтобы не определять координаты центра карты вручную,
+//         // воспользуйтесь инструментом Определение координат.
+//         center: [54.139388, 45.193018
+//         ],
+//         // Уровень масштабирования. Допустимые значения:
+//         // от 0 (весь мир) до 19.
+//         zoom: 12
+//     });
+
+
+//     // let devices = DEVICES;
+
+//     // if(devices != null){
+//     //     devices.data.forEach(data => {
+//     //     data.items.forEach(item => {
+//     //         let latitude = item.data.coordinate.LATITUDE;
+//     //         let longitude = item.data.coordinate.LONGITUDE;
+//     //         // console.log(LATITUDE, LONGITUDE);
+//     //         let point = new ymaps.Placemark([latitude, longitude], {
+//     //             balloonContent: 'device: ' + item.name
+//     //         }, {
+//     //             preset: 'islands#circleDotIcon',
+//     //             iconColor: '#FF7A00',
+//     //             iconFillStyle: '#000000'
+//     //         })
+//     //         myMap.geoObjects.add(point);
+//     //     })
+//     // });
+//     // };
+
+
+//     // console.log("ggggg");
+//     // console.log( store._state.DEVICES.data);
+//     // if(store.state.DEVICES != null){
+//     //     console.log("aaaaa");
+//     //     console.log( store.state.DEVICES.data);
+//     //     store.state.DEVICES.data.forEach(data => {
+//     //     data.items.forEach(item => {
+//     //         let latitude = item.data.coordinate.LATITUDE;
+//     //         let longitude = item.data.coordinate.LONGITUDE;
+//     //         // console.log(LATITUDE, LONGITUDE);
+//     //         let point = new ymaps.Placemark([latitude, longitude], {
+//     //             balloonContent: 'device: ' + item.name
+//     //         }, {
+//     //             preset: 'islands#circleDotIcon',
+//     //             iconColor: '#FF7A00',
+//     //             iconFillStyle: '#000000'
+//     //         })
+//     //         myMap.geoObjects.add(point);
+//     //     })
+//     // });
+//     // };
+
+// }
+</script>
+
+
+
+
 
 <template>
     <!-- {{ coords }} -->
     <section class="map-container">
         <div id="map" class="map"></div>
     </section>
+    <div class="hren">
+       <ul v-for="device in DEVICES.data" :key="device.id">
+            <li>{{ device }}</li>
+       </ul> 
+    </div>
 </template>
 <style scope>
 .map-container {
