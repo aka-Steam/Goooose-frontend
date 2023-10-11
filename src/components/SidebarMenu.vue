@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { MqResponsive } from "vue3-mq";
 import store from '../storage';
 import devices from '../services/device.service.js'
+import { startConnect } from '../services/mqtt'
 
 function isNarrow(){
       console.log(window.innerWidth);
@@ -13,10 +14,10 @@ function isNarrow(){
     }}
 
 const narrowMenu = ref(isNarrow());
-
 </script>
 
 <template>
+
       <aside class="sidebar" v-bind:class="{ narrow: narrowMenu }">
             <div class="sidebar-menu" v-bind:class="{ narrow: narrowMenu }">
                   <div class="logo-container">
@@ -39,7 +40,7 @@ const narrowMenu = ref(isNarrow());
                               </MqResponsive>
                         </RouterLink>
                         <div @click="narrowMenu = !narrowMenu" class="indicator"></div>
-                  </div>
+       
 
                   <div class="sidebar-menu__middleground">
                         <nav class="nav">
@@ -106,7 +107,14 @@ const narrowMenu = ref(isNarrow());
                                     </li>
                               </ul>
                         </nav>
+                        <div class="developer-operations">
+                                <div>developer operations</div>
+                                <button @click="console.log(store)">Show veux storage</button> 
+                                <button @click="console.log(JSON.parse(JSON.stringify(store.getters.DEVICES.data)))">Show veux devices</button>    
+                                <button @click = "devices.getDevices">getDevices</button>
 
+                                <button @click="startConnect">Mqtt connect</button>                 
+                         </div>
                         <RouterLink to="/profile" class="profile">
                               <div class="profile__icon">
                                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
