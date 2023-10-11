@@ -30,7 +30,7 @@ export function startConnect() {
 		onSuccess: onConnect,
 		userName: user,
 		password: pass,
-		useSSL: true
+		useSSL: false
 	});
 }
 
@@ -73,6 +73,6 @@ export function startDisconnect() {
 // Вызывается при нажатии кнопки "полить"
 export function onPump(device, device_item) {
 	let message = new Paho.MQTT.Message(device_item +":pump:on");
-	message.destinationName = topic_control + device;
+	message.destinationName = topic_control + device + "/control";
 	client.send(message);
 }

@@ -1,52 +1,45 @@
 <script setup>
-import { ref } from 'vue'
-import Menu from '../../components/SidebarMenu.vue'
-import { mapActions, mapGetters } from 'vuex'
-import { onPump } from '../../services/mqtt'
+      import { ref, onMounted, computed } from 'vue'
+      import Menu from '../../components/SidebarMenu.vue'
+      import { onPump } from '../../services/mqtt'
+      import { useStore } from 'vuex'
+      import { mapGetters, mapActions} from '../../storage/map-state'
 
-const devices = ref(JSON.parse(localStorage.getItem('devices')))
-const openItems = ref(new Array(devices.length).fill(false))
+      const { GET_DEVICES_FROM_API } = mapActions()
+      const { DEVICES } = mapGetters()
+
+      const store = useStore()  
+      const openItems = ref([])
+
+      GET_DEVICES_FROM_API()
+            .then((response) => {
+                  if (response.data){
+                        console.log('Initial data arrived!');
+                        openItems.value = new Array(store.state.devices.length).fill(false);
+                  };
+            }); 
+
+      onMounted(()=>{   
+            const autoreload  = setInterval(() => GET_DEVICES_FROM_API()
+            .then((response) => {
+                  if (response.data){
+                        console.log('Data arrived!');
+                  };
+                  if (store.state.auth.status.loggedIn == false){
+                        clearInterval(autoreload);
+                  }; 
+            }), 5000);    
+      })
 </script> 
-
-<script>
-      export default {
-    name: "Devices",
-    data() {
-        return{
-            // devices:[...]
-        }
-    },
-    methods: {
-        ...mapActions([
-            'GET_DEVICES_FROM_API'
-        ])
-    }, 
-    mounted() {
-        setInterval(() => this.GET_DEVICES_FROM_API()
-        .then((response) => {
-            if (response.data){
-                console.log('Data arrived!')
-            }
-        }), 5000);
-        
-    }, 
-    computed: {
-        ...mapGetters([
-            'DEVICES'
-        ])
-    }
-}
-</script>
 
 <template>
       <main class="dashboard-main">
             <Menu></Menu>
             <section class="dashboard-content">
-                  <!-- Здесь будет список устройств и сетей -->
                   <div style="margin: 20px; text-align: center; color:var(--color-text);">Home (dashboard) page</div>
                   <hr>
-                  <!-- test -->
-                  <div v-if="devices != null" v-for="(device, index) in devices.data" :key="device.id">
+
+                  <div v-if="DEVICES != null" v-for="(device, index) in DEVICES.data" :key="device.id">
                         <div class="device" @click="openItems[index] = !openItems[index]">{{ device.id }}
                               &emsp;&emsp;&emsp;|&emsp;&emsp;&emsp; {{
                                     device.name }}</div>
@@ -71,7 +64,7 @@ const openItems = ref(new Array(devices.length).fill(false))
                                                             </span>
 
                                                             <span class="toggle__text">автомод</span>
-                                                      </label> -->
+                                                      </label>  -->
                                                       <hr>
                                                       <div class="widget__group widget__group--sensors">
                                                             <div class="sensor">Температура воздха:
@@ -106,62 +99,57 @@ const openItems = ref(new Array(devices.length).fill(false))
                               </div>
                         </div>
                   </div>                     
-                  <div class="developer-operations">
-                        <h3>developer-operations</h3>
-                        <hr>
-                        <ul v-for="device in DEVICES.data" :key="device.id">
-                              <li>{{ device }}</li>
-                        </ul> 
-                  </div>
             </section>
       </main>
 </template>
+
 <style scoped>
-.dashboard-content {
-      padding: 0 20px;
-}
+      .dashboard-content {
+            padding: 0 20px;
+      }
 
-.device {
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 16px;
-      padding: 10px 30px;
-      width: 100%;
-      height: 64px;
-      border-radius: 32px;
-      background-color: var(--color-sidebar-foreground);
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+      .device {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 10px 30px;
+            width: 100%;
+            height: 64px;
+            border-radius: 32px;
+            background-color: var(--color-sidebar-foreground);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      }
 
-.device__items {
-      margin-bottom: 16px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-}
+      .device__items {
+            margin-bottom: 16px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+      }
 
-.device__item {
+      .device__item {
 
-      padding: 10px 30px;
-      width: 480px;
-      height: auto;
-      border-radius: 32px;
-      background-color: var(--color-sidebar-foreground);
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+            padding: 10px 30px;
+            width: 480px;
+            height: auto;
+            border-radius: 32px;
+            background-color: var(--color-sidebar-foreground);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      }
 
-.soil-hum__value {
-      display: block;
-      line-height: 72px;
-      font-size: 72px;
-      color: var(--color-accent);
-}
+      .soil-hum__value {
+            display: block;
+            line-height: 72px;
+            font-size: 72px;
+            color: var(--color-accent);
+      }
 
-.sensor_data {
-      color: var(--color-accent);
-}</style>
+      .sensor_data {
+            color: var(--color-accent);
+      }
+</style>
