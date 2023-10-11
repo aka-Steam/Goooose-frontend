@@ -57,6 +57,7 @@
                                                       <!-- <label class="toggle">
                                                             <input type="checkbox"> class="toggle__input"
                                                             <input type="checkbox" <?= $user['automode'] ?> class="toggle__input"
+
                                                             onclick="autoModClick(this)">
                                                             <img src="img/valve.svg" alt="valve" class="autoValve"> 
                                                             <span class="toggle__slider">
@@ -64,7 +65,8 @@
                                                             </span>
 
                                                             <span class="toggle__text">автомод</span>
-                                                      </label>  -->
+                                                      </label> -->
+                                     
                                                       <hr>
                                                       <div class="widget__group widget__group--sensors">
                                                             <div class="sensor">Температура воздха:

@@ -21,12 +21,15 @@
   --color-sidebar-background:#FFFFFF;
   --color-sidebar-middleground :#CECDD2;
   --color-sidebar-foreground:#FFFFFF;
+  --color-sidebar-active:#1F1E2E; 
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #403d4a;/*this is a test version*/
+    --color-background: #2A2939;/*this is a test version*/
     --color-background-header: #0F0F0F;
+    --color-background-dashboard:#2A2939;
+
     --color-text: #FFFFFF;
 
     --color-sidebar-background:#1F1E2E;

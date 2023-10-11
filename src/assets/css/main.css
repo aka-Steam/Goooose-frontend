@@ -13,6 +13,7 @@
   padding-top: 0;
   display: flex;
   flex-direction: row;
+  background-color: var(--color-background-dashboard);
 }
 
 .dashboard-content{
