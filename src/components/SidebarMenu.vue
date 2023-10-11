@@ -40,7 +40,7 @@ const narrowMenu = ref(isNarrow());
                               </MqResponsive>
                         </RouterLink>
                         <div @click="narrowMenu = !narrowMenu" class="indicator"></div>
-       
+                  </div>
 
                   <div class="sidebar-menu__middleground">
                         <nav class="nav">
