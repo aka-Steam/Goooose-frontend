@@ -1,13 +1,60 @@
 <script setup>
       import { ref, onMounted, computed } from 'vue'
       import Menu from '../../components/SidebarMenu.vue'
-      import { onPump } from '../../services/mqtt'
       import { useStore } from 'vuex'
       import { mapGetters, mapActions} from '../../storage/map-state'
+      import { startConnect } from '../../services/mqtt'
       import HeaderRoute from '../../components/HeaderRoute.vue'
+      import Widget from '../../components/Widget.vue'
 
       const { GET_DEVICES_FROM_API } = mapActions()
-      const { DEVICES } = mapGetters()
+      //const { DEVICES } = mapGetters()
+
+const DEVICES = {
+ "data": [
+    { "id": 1,
+      "chip_id": 1865821,
+      "name": "tester",
+      "items":[
+            {
+              "id": 0,
+              "item_id": 1234,
+              "data": 
+              {
+                "sensors":{
+                  "AIR_TEMPERATURE": 23,
+                  "AIR_HUMIDITY": 55,
+                  "SOIL_HUMIDITY": 32,
+                  "SOIL_TEMPERATURE": 17,
+                  "AIR_QUALITY": 550
+                }
+              }
+            }
+      ]
+  },
+     { "id": 2,
+      "chip_id": 1000000,
+      "name": "tester2",
+      "items":[
+            {
+              "id": 1,
+              "item_id": 1034,
+              "data": 
+              {
+                "sensors":{
+                  "AIR_TEMPERATURE": 22,
+                  "AIR_HUMIDITY": 22,
+                  "SOIL_HUMIDITY": 22,
+                  "SOIL_TEMPERATURE": 22,
+                  "AIR_QUALITY": 222
+                }
+              }
+            }
+      ]
+  }
+  ]
+}
+
 
       const store = useStore()  
       const openItems = ref([])
@@ -21,16 +68,19 @@
             }); 
 
       onMounted(()=>{   
-            const autoreload  = setInterval(() => GET_DEVICES_FROM_API()
-            .then((response) => {
-                  if (response.data){
-                        console.log('Data arrived!');
-                  };
-                  if (store.state.auth.status.loggedIn == false){
-                        clearInterval(autoreload);
-                  }; 
-            }), 5000);    
+            // // Думаю стоит преенести в app vue или куда-нибудь в тот раон, чтобы при каждом переходе на страницу не запускалось
+            // const autoreload  = setInterval(() => GET_DEVICES_FROM_API()
+            // .then((response) => {
+            //       if (response.data){
+            //             console.log('Data arrived!');
+            //       };
+            //       if (store.state.auth.status.loggedIn == false){
+            //             clearInterval(autoreload);
+            //       }; 
+            // }), 5000);    
+            startConnect();
       })
+
 </script> 
 
 <template>
@@ -45,59 +95,7 @@
                                           device.name }}</div>
                               <div class="device__items">
                                     <div v-if="openItems[index]" v-for="item in device.items" :key="item.id" class="device__item">
-                                          <article class="widget">
-                                                <div class="widget__controller widget__controller--watering">
-                                                      <div class="widget__title">{{ item.name }}</div>
-                                                      <hr>
-                                                      <div class="widget__group widget__group--watering">
-
-                                                            <button class="widget__button widget__button--pump"
-                                                                  @click="onPump(device.chip_id, item.item_id)">Полить</button>
-
-                                                            <!-- <label class="toggle">
-                                                                  <input type="checkbox"> class="toggle__input"
-                                                                  <input type="checkbox" <?= $user['automode'] ?> class="toggle__input"
-
-                                                                  onclick="autoModClick(this)">
-                                                                  <img src="img/valve.svg" alt="valve" class="autoValve"> 
-                                                                  <span class="toggle__slider">
-
-                                                                  </span>
-
-                                                                  <span class="toggle__text">автомод</span>
-                                                            </label> -->
-                                          
-                                                            <hr>
-                                                            <div class="widget__group widget__group--sensors">
-                                                                  <div class="sensor">Температура воздха:
-                                                                        <span id="temp"
-                                                                              class="sensor_data">{{ item.data.sensors.AIR_TEMPERATURE
-                                                                                    + "&deg;C" }}</span>
-                                                                  </div>
-                                                                  <div class="sensor">Влажность воздуха:
-                                                                        <span id="airHum"
-                                                                              class="sensor_data">{{ item.data.sensors.AIR_HUMIDITY +
-                                                                                    "%" }}</span>
-                                                                  </div>
-                                                                  <div class="sensor">Влажность почвы:
-                                                                        <span id="temp"
-                                                                              class="sensor_data">{{ item.data.sensors.SOIL_HUMIDITY
-                                                                                    + "%" }}</span>
-                                                                  </div>
-                                                                  <div class="sensor">Температура почвы:
-                                                                        <span id="tempSoil"
-                                                                              class="sensor_data">{{ item.data.sensors.SOIL_TEMPERATURE
-                                                                                    + "&deg;C" }}</span>
-                                                                  </div>
-                                                                  <div class="sensor">Содержание CO2:
-                                                                        <span id="co2"
-                                                                              class="sensor_data">{{ item.data.sensors.AIR_QUALITY +
-                                                                                    "ppm" }} </span>
-                                                                  </div>
-                                                            </div>
-                                                      </div>
-                                                </div>
-                                          </article>
+                                          <Widget :device-id="device.chip_id" :unit="item"/>
                                     </div>
                               </div>
                         </div>  
@@ -143,16 +141,5 @@
             border-radius: 32px;
             background-color: var(--color-sidebar-foreground);
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      }
-
-      .soil-hum__value {
-            display: block;
-            line-height: 72px;
-            font-size: 72px;
-            color: var(--color-accent);
-      }
-
-      .sensor_data {
-            color: var(--color-accent);
       }
 </style>

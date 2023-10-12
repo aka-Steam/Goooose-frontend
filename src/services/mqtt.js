@@ -1,3 +1,5 @@
+import { createConditionalExpression } from "@vue/compiler-core";
+
 // Используемые топики
 var topic_test = "test/pub";
 var topic_control = "device/";
@@ -30,7 +32,7 @@ export function startConnect() {
 		onSuccess: onConnect,
 		userName: user,
 		password: pass,
-		useSSL: false
+		useSSL: true//false
 	});
 }
 
@@ -44,6 +46,7 @@ function onConnect() {
 
 	// Подписываемся на топик
 	client.subscribe(topic);
+	document.getElementById('mqtt-indicator').classList.add('conected');
 }
 
 // Вызывается, когда клиент теряет свое соединение
@@ -53,6 +56,8 @@ function onConnectionLost(responseObject) {
 	if (responseObject.errorCode !== 0) {
 		console.log('ERROR: ' +  responseObject.errorMessage );
 	}
+
+	document.getElementById('mqtt-indicator').classList.remove('conected');
 }
 
 // Вызывается при поступлении сообщения
@@ -76,3 +81,67 @@ export function onPump(device, device_item) {
 	message.destinationName = topic_control + device + "/control";
 	client.send(message);
 }
+
+// Вызывается при изменении состояния автоматического режима
+export function autoModClick(device, device_item, automod) {
+	// console.log("-->");
+	// console.log(event);
+	// console.log("target value" + event.target.value);
+	// console.log("target checked" + event.target.checked);
+	let status = "0"
+	let payload = device_item;
+	if (automod) {
+		payload = payload +":automod:on";
+
+		// // Сохраняем состояние переключателя автоматического режима в БД
+		// status = "checked"
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: 'actions/setAutomode.php',
+		// 	data: "automode=" + status,
+		// 	error: function (request, status, error) {
+		// 		checkbox.checked = !checkbox.checked;
+		// 		alert(request.responseText);
+		// 		message = new Paho.MQTT.Message("0");
+		// 	}
+		// })
+	} else {
+		payload = payload +":automod:off";
+		// status = ""
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: 'actions/setAutomode.php',
+		// 	data: "automode=" + status,
+		// 	error: function (request, status, error) {
+		// 		checkbox.checked = !checkbox.checked
+		// 		alert(request.responseText);
+		// 		message = new Paho.MQTT.Message("1");
+		// 	}
+		// })
+	}
+
+	let message = new Paho.MQTT.Message(payload);
+	message.destinationName = topic_control + device + "/control"
+	client.send(message);
+}
+
+// // Вызывается при изменении созранении данных порога и mac-адреса
+// export function saveWidgetClick() {
+// 	var mac = document.getElementById("mac").value;
+// 	var treshold = document.getElementById("soilHumTreshold").value;
+
+// 	var message = new Paho.MQTT.Message(treshold);
+// 	message.destinationName = mac + "/" + topic_soilHum_threshold;
+
+// 	$.ajax({
+// 		type: 'POST',
+// 		url: '/actions/saveWidget.php',
+// 		data: { 'mac': mac, 'treshold': treshold },
+// 		error: function (request, status, error) {
+// 			alert(request.responseText);
+// 			message = new Paho.MQTT.Message("-1");
+// 		}
+// 	})
+
+// 	client.send(message);
+// }

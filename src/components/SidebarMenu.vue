@@ -106,6 +106,7 @@ const narrowMenu = ref(isNarrow());
                                           </RouterLink>
                                     </li>
                               </ul>
+                              <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div>
                         </nav>
                         <div class="developer-operations">
                                 <div>developer operations</div>
@@ -334,7 +335,20 @@ const narrowMenu = ref(isNarrow());
             flex-wrap: wrap;
       }
 
+      .mqtt-indicator{
+            cursor: pointer;
+            margin: 18px auto;
+            width: 30px;
+            height: 30px;
+            border-radius: 9999px;
+            background-color: var(--color-background-dashboard);
+            box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.25) inset;
+      }
 
+      .mqtt-indicator.conected{
+            background-color: var(--color-accent);
+            box-shadow: none;
+      }
 
       /* narrow menu */
       .sidebar.narrow{

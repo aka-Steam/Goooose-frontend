@@ -1,5 +1,6 @@
 <script setup>
 import Menu from '../../components/SidebarMenu.vue'
+import HeaderRoute from '../../components/HeaderRoute.vue'
 </script>
 
 <script>
@@ -30,40 +31,38 @@ export default {
 <template>
   <main class="dashboard-main">
     <Menu></Menu>
+    
     <section class="dashboard-content">
-      <div style="margin: 20px; text-align: center; color:var(--color-text);">Profile page</div>
-    <hr>
+      <HeaderRoute>Профиль</HeaderRoute>
 
-
-    <div class="container">
-      <div class="jumbotron">
-        <h3>
-          <strong>{{ currentUser.data.user.username }}</strong>&emsp;&emsp;
-          <a class="logout-button" @click.prevent="logOut"><strong>Выйти</strong></a>
-        </h3>
-      </div>
-      <p>
-        <strong>Email:</strong>
-        {{ currentUser.data.user.email }}
-      </p>
-      <div class="developer-operations">
-        <br>
-        <hr>
+      <div class="container">
+        <div class="jumbotron">
+          <h3>
+            <strong>{{ currentUser.data.user.username }}</strong>&emsp;&emsp;
+            <a class="logout-button" @click.prevent="logOut"><strong>Выйти</strong></a>
+          </h3>
+        </div>
         <p>
-          <strong>Id:</strong>
-          {{ currentUser.data.user.id }}
+          <strong>Email:</strong>
+          {{ currentUser.data.user.email }}
         </p>
-        <p>
-          <strong>Token:</strong>
-          {{ currentUser.data.token.substring(0, 20) }} ... {{ currentUser.data.token.substr(currentUser.data.token.length
-            -
-            20) }}
-        </p>  
+        <div class="developer-operations">
+          <br>
+          <hr>
+          <p>
+            <strong>Id:</strong>
+            {{ currentUser.data.user.id }}
+          </p>
+          <p>
+            <strong>Token:</strong>
+            {{ currentUser.data.token.substring(0, 20) }} ... {{ currentUser.data.token.substr(currentUser.data.token.length
+              -
+              20) }}
+          </p>  
+        </div>
+        
       </div>
-      
-    </div>
     </section>
-  
   </main>
 </template>
 
