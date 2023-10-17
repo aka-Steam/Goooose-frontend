@@ -84,10 +84,6 @@ export function onPump(device, device_item) {
 
 // Вызывается при изменении состояния автоматического режима
 export function autoModClick(device, device_item, automod) {
-	// console.log("-->");
-	// console.log(event);
-	// console.log("target value" + event.target.value);
-	// console.log("target checked" + event.target.checked);
 	let status = "0"
 	let payload = device_item;
 	if (automod) {
@@ -125,23 +121,10 @@ export function autoModClick(device, device_item, automod) {
 	client.send(message);
 }
 
-// // Вызывается при изменении созранении данных порога и mac-адреса
-// export function saveWidgetClick() {
-// 	var mac = document.getElementById("mac").value;
-// 	var treshold = document.getElementById("soilHumTreshold").value;
-
-// 	var message = new Paho.MQTT.Message(treshold);
-// 	message.destinationName = mac + "/" + topic_soilHum_threshold;
-
-// 	$.ajax({
-// 		type: 'POST',
-// 		url: '/actions/saveWidget.php',
-// 		data: { 'mac': mac, 'treshold': treshold },
-// 		error: function (request, status, error) {
-// 			alert(request.responseText);
-// 			message = new Paho.MQTT.Message("-1");
-// 		}
-// 	})
-
-// 	client.send(message);
-// }
+export function onHumidityThreshold(device, device_item, newValue){
+	let status = "0"
+	let payload = device_item + ":humidityThreshold:" + newValue;
+	let message = new Paho.MQTT.Message(payload);
+	message.destinationName = topic_control + device + "/control"
+	client.send(message);
+}

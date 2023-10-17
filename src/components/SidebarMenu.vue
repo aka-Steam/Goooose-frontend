@@ -43,6 +43,7 @@ const narrowMenu = ref(isNarrow());
                   </div>
 
                   <div class="sidebar-menu__middleground">
+                        <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div>
                         <nav class="nav">
                               <ul class="nav__list">
                                     <li class="nav__list-item">
@@ -106,7 +107,6 @@ const narrowMenu = ref(isNarrow());
                                           </RouterLink>
                                     </li>
                               </ul>
-                              <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div>
                         </nav>
                         <div class="developer-operations">
                                 <div>developer operations</div>
@@ -208,6 +208,7 @@ const narrowMenu = ref(isNarrow());
             width: 300px;
             height: calc(100vh - 60px);
 
+            position: relative;
             border-radius: 20px 0 0 0;
             background-color: var(--color-sidebar-middleground);
 
@@ -337,7 +338,9 @@ const narrowMenu = ref(isNarrow());
 
       .mqtt-indicator{
             cursor: pointer;
-            margin: 18px auto;
+            position: absolute;
+            top: 18px;
+            right: 28px;
             width: 30px;
             height: 30px;
             border-radius: 9999px;
@@ -401,6 +404,11 @@ const narrowMenu = ref(isNarrow());
             display: none;
       }
 
+      .narrow .mqtt-indicator{
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+      }
       .narrow .developer-operations {
             display: none;
       }

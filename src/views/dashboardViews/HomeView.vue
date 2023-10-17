@@ -11,48 +11,92 @@
       //const { DEVICES } = mapGetters()
 
 const DEVICES = {
- "data": [
-    { "id": 1,
-      "chip_id": 1865821,
-      "name": "tester",
-      "items":[
-            {
-              "id": 0,
-              "item_id": 1234,
-              "data": 
-              {
-                "sensors":{
-                  "AIR_TEMPERATURE": 23,
-                  "AIR_HUMIDITY": 55,
-                  "SOIL_HUMIDITY": 32,
-                  "SOIL_TEMPERATURE": 17,
-                  "AIR_QUALITY": 550
+    "data": [
+        {
+            "id": 2,
+            "chip_id": "13871010",
+            "items": [
+                {
+                    "id": 6,
+                    "item_id": 1211,
+                    "name": null,
+                    "description": null,
+                    "data": {
+                        "sensors": {
+                            "AIR_TEMPERATURE": "5",
+                            "AIR_HUMIDITY": "21",
+                            "SOIL_TEMPERATURE": "26",
+                            "SOIL_HUMIDITY": "0",
+                            "AIR_QUALITY": "271"
+                        },
+                        "coordinate": {
+                            "LONGITUDE": 45.240543,
+                            "LATITUDE": 54.270219
+                        },
+                        "autoMode": false,
+                        "humidityThreshold": 0
+                    },
+                    "created_at": "2023-10-03T07:23:08.000000Z"
                 }
-              }
-            }
-      ]
-  },
-     { "id": 2,
-      "chip_id": 1000000,
-      "name": "tester2",
-      "items":[
-            {
-              "id": 1,
-              "item_id": 1034,
-              "data": 
-              {
-                "sensors":{
-                  "AIR_TEMPERATURE": 22,
-                  "AIR_HUMIDITY": 22,
-                  "SOIL_HUMIDITY": 22,
-                  "SOIL_TEMPERATURE": 22,
-                  "AIR_QUALITY": 222
+            ],
+            "name": "Хачатур",
+            "description": "Я продаю мячики",
+            "created_at": "2023-09-24T18:22:44.000000Z"
+        },
+        {
+            "id": 3,
+            "chip_id": "265453245",
+            "items": [
+                {
+                    "id": 4,
+                    "item_id": 2645,
+                    "name": "Балабай",
+                    "description": "СынБхатачура",
+                    "data": {
+                        "sensors": {
+                            "AIR_TEMPERATURE": 26,
+                            "AIR_HUMIDITY": 38,
+                            "SOIL_TEMPERATURE": 54,
+                            "SOIL_HUMIDITY": 0,
+                            "AIR_QUALITY": 634
+                        },
+                        "coordinate": {
+                            "LONGITUDE": 45.140343,
+                            "LATITUDE": 54.160119
+                        },
+                        "autoMode": true,
+                        "humidityThreshold": 23
+                    },
+                    "created_at": null
+                },
+                {
+                    "id": 5,
+                    "item_id": 1654,
+                    "name": "Каравай",
+                    "description": "Сын Хачатура",
+                    "data": {
+                        "sensors": {
+                            "AIR_TEMPERATURE": 26,
+                            "AIR_HUMIDITY": 38,
+                            "SOIL_TEMPERATURE": 54,
+                            "SOIL_HUMIDITY": 0,
+                            "AIR_QUALITY": 634
+                        },
+                        "coordinate": {
+                            "LONGITUDE": 45.140543,
+                            "LATITUDE": 54.170219
+                        },
+                        "autoMode": false,
+                        "humidityThreshold": 2 
+                    },
+                    "created_at": null
                 }
-              }
-            }
-      ]
-  }
-  ]
+            ],
+            "name": "Хачатур",
+            "description": "Я продаю шшарики",
+            "created_at": null
+        }
+    ]
 }
 
 
@@ -131,15 +175,5 @@ const DEVICES = {
             align-items: center;
             flex-wrap: wrap;
             gap: 16px;
-      }
-
-      .device__item {
-
-            padding: 10px 30px;
-            width: 480px;
-            height: auto;
-            border-radius: 32px;
-            background-color: var(--color-sidebar-foreground);
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       }
 </style>
