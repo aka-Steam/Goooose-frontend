@@ -1,7 +1,6 @@
 <script setup>
 import { onPump, autoModClick, onHumidityThreshold} from '../services/mqtt'
 import Switch from './Switch.vue'
-import Range from './Range.vue'
 import RangeSlider from './RangeSlider.vue'
 
 const props = defineProps({
@@ -48,10 +47,11 @@ const props = defineProps({
                         <div class="widget__group--control">
                               <button class="widget__button"
                               @click="onPump(deviceId, unit.item_id)">Полить</button>
-                        
+                              <!-- unit.autoMode cange vuex.state variable -->
                               <Switch :checked="unit.autoMode" @update:checked="(status)=>autoModClick(deviceId, unit.item_id, status)" label="Автополив"/>        
                         </div> 
-                        <RangeSlider 
+                        <RangeSlider
+                              :disabled="false" 
                               :elementId="unit.item_id" 
                               :modelValue="unit.humidityThreshold" 
                               @update:modelValue="(value)=>onHumidityThreshold(deviceId, unit.item_id, value)">

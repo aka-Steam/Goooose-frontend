@@ -140,6 +140,10 @@ watchEffect(() => {
   border-radius: 20px;
 }  
 
+.slider-value__input[disabled]{
+  color: #888888;
+}
+
 .slider-value__input:focus {
   border-color: var(--color-accent1);
   background-color: var(--color-background-dashboard);
@@ -179,7 +183,9 @@ watchEffect(() => {
   pointer-events: none;
   border-radius: 999px;
 }
-
+.custom-slider[disabled="true"] input[type="range"]::before{
+  background-color: #888888;
+}
 /* `::-webkit-slider-runnable-track` targets the track (background) of a range slider in chrome and safari browsers. */
 .custom-slider input[type="range"]::-webkit-slider-runnable-track {
   appearance: none;
