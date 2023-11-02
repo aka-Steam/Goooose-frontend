@@ -4,9 +4,33 @@ import Switch from './Switch.vue'
 import RangeSlider from './RangeSlider.vue'
 
 const props = defineProps({
-      deviceId: Number,
-      unit: Object
+      device_index:{
+            type: Number,
+            default: 0
+      },
+      item_index:{
+            type: Number,
+            default: 0
+      },
+      deviceId:{
+            type: Number,
+            default: 0
+      },
+      unit:{
+            type: Object
+      }
 }) 
+
+function onAutoModClick( status, device_id, item_id, device_state_index, item_state_index,){
+      //вызвать изменение state по  id
+ //state не обновляесм, сам обновится и индексы не нужны соответственно
+      autoModClick(device_id, item_id, status)
+}
+
+function onMoistureThresholdChange(device_id, item_id, value){
+       //state не обновляесм, сам обновится и индексы не нужны соответственно
+      onHumidityThreshold(device_id, item_id, value)
+}
 
 </script>
 
@@ -48,18 +72,19 @@ const props = defineProps({
                               <button class="widget__button"
                               @click="onPump(deviceId, unit.item_id)">Полить</button>
                               <!-- unit.autoMode cange vuex.state variable -->
-                              <Switch :checked="unit.autoMode" @update:checked="(status)=>autoModClick(deviceId, unit.item_id, status)" label="Автополив"/>        
+                              <Switch :checked="unit.data.autoMode" @update:checked="(status)=>onAutoModClick(status,deviceId, unit.item_id, device_index, item_index)" label="Автополив"/>      
                         </div> 
                         <RangeSlider
                               :disabled="false" 
                               :elementId="unit.item_id" 
-                              :modelValue="unit.humidityThreshold" 
-                              @update:modelValue="(value)=>onHumidityThreshold(deviceId, unit.item_id, value)">
+                              :modelValue="unit.data.humidityThreshold" 
+                              @update:modelValue="(value)=>onMoistureThresholdChange(deviceId, unit.item_id, value)">
                               Порог влажности для начала полива в автоматическом режиме
                         </RangeSlider>
                   </div>  
             </div>
       </article>
+      <!-- {{"di " + device_index + "; ii " +  item_index}} -->
 </template>
 
 <style scoped>

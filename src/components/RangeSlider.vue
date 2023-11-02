@@ -164,6 +164,7 @@ watchEffect(() => {
 
 /* style the input element with type "range" */
 .custom-slider input[type="range"] {
+  cursor:pointer;
   width:100%;
   position: relative;
   appearance: none;

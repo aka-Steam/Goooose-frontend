@@ -32,7 +32,7 @@ export function startConnect() {
 		onSuccess: onConnect,
 		userName: user,
 		password: pass,
-		useSSL: true//false
+		useSSL: false
 	});
 }
 
@@ -77,7 +77,8 @@ export function startDisconnect() {
 
 // Вызывается при нажатии кнопки "полить"
 export function onPump(device, device_item) {
-	let message = new Paho.MQTT.Message(device_item +":pump:on");
+	console.log(typeof(device_item));
+	let message = new Paho.MQTT.Message(~~(device_item/100) + ":" + (device_item % 100) +":pump:on");
 	message.destinationName = topic_control + device + "/control";
 	client.send(message);
 }
@@ -85,9 +86,9 @@ export function onPump(device, device_item) {
 // Вызывается при изменении состояния автоматического режима
 export function autoModClick(device, device_item, automod) {
 	let status = "0"
-	let payload = device_item;
+	let payload = ~~(device_item/100) + ":" + (device_item % 100);
 	if (automod) {
-		payload = payload +":automod:on";
+		payload +=":automod:on";
 
 		// // Сохраняем состояние переключателя автоматического режима в БД
 		// status = "checked"
@@ -102,7 +103,7 @@ export function autoModClick(device, device_item, automod) {
 		// 	}
 		// })
 	} else {
-		payload = payload +":automod:off";
+		payload +=":automod:off";
 		// status = ""
 		// $.ajax({
 		// 	type: 'POST',
@@ -123,7 +124,7 @@ export function autoModClick(device, device_item, automod) {
 
 export function onHumidityThreshold(device, device_item, newValue){
 	let status = "0"
-	let payload = device_item + ":humidityThreshold:" + newValue;
+	let payload = ~~(device_item/100) + ":" + (device_item % 100) + ":humidityThreshold:" + newValue;
 	let message = new Paho.MQTT.Message(payload);
 	message.destinationName = topic_control + device + "/control"
 	client.send(message);

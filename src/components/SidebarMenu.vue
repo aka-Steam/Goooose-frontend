@@ -108,14 +108,14 @@ const narrowMenu = ref(isNarrow());
                                     </li>
                               </ul>
                         </nav>
-                        <div class="developer-operations">
+                        <!-- <div class="developer-operations">
                                 <div>developer operations</div>
                                 <button @click="console.log(store)">Show veux storage</button> 
                                 <button @click="console.log(JSON.parse(JSON.stringify(store.getters.DEVICES.data)))">Show veux devices</button>    
                                 <button @click = "devices.getDevices">getDevices</button>
 
                                 <button @click="startConnect">Mqtt connect</button>                 
-                         </div>
+                         </div> -->
                         <RouterLink to="/profile" class="profile">
                               <div class="profile__icon">
                                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
