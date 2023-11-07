@@ -1,5 +1,8 @@
 import { createConditionalExpression } from "@vue/compiler-core";
-
+import DeviceItemsService from './device.service'
+import authHeader from './auth-header';
+import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL + '/device/item/';
 // Используемые топики
 var topic_test = "test/pub";
 var topic_control = "device/";
@@ -84,26 +87,31 @@ export function onPump(device, device_item) {
 }
 
 // Вызывается при изменении состояния автоматического режима
-export function autoModClick(device, device_item, automod) {
+export function autoModClick(automod, device_chipId, item) {
 	let status = "0"
-	let payload = ~~(device_item/100) + ":" + (device_item % 100);
+	// let payload = ~~(device_item/100) + ":" + (device_item % 100);
+	let payload = ~~(item.item_id/100) + ":" + (item.item_id % 100);
 	if (automod) {
-		payload +=":automod:on";
+		payload +=":automod:1";
 
 		// // Сохраняем состояние переключателя автоматического режима в БД
 		// status = "checked"
 		// $.ajax({
-		// 	type: 'POST',
-		// 	url: 'actions/setAutomode.php',
-		// 	data: "automode=" + status,
+		// 	type: 'PUT',
+		// 	url: API_URL + item.id,
+		// 	data: {
+		// 		data: item.data
+		// 	},
+		// 	headers: authHeader(),
 		// 	error: function (request, status, error) {
-		// 		checkbox.checked = !checkbox.checked;
-		// 		alert(request.responseText);
-		// 		message = new Paho.MQTT.Message("0");
+		// 		// checkbox.checked = !checkbox.checked;
+		// 		// alert(request.responseText);
+		// 		// message = new Paho.MQTT.Message("0");
+		// 		console.log("произошла ошибка")
 		// 	}
 		// })
 	} else {
-		payload +=":automod:off";
+		payload +=":automod:0";
 		// status = ""
 		// $.ajax({
 		// 	type: 'POST',
@@ -118,14 +126,14 @@ export function autoModClick(device, device_item, automod) {
 	}
 
 	let message = new Paho.MQTT.Message(payload);
-	message.destinationName = topic_control + device + "/control"
+	message.destinationName = topic_control + device_chipId + "/control"
 	client.send(message);
 }
 
-export function onHumidityThreshold(device, device_item, newValue){
+export function onHumidityThreshold(newValue, device_chipId, item){
 	let status = "0"
-	let payload = ~~(device_item/100) + ":" + (device_item % 100) + ":humidityThreshold:" + newValue;
+	let payload = ~~(item.item_id/100) + ":" + (item.item_id % 100) + ":soilHumThreshold:" + newValue;
 	let message = new Paho.MQTT.Message(payload);
-	message.destinationName = topic_control + device + "/control"
+	message.destinationName = topic_control + device_chipId + "/control"
 	client.send(message);
 }

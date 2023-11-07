@@ -21,15 +21,15 @@ const props = defineProps({
       }
 }) 
 
-function onAutoModClick( status, device_id, item_id, device_state_index, item_state_index,){
+function onAutoModClick(status, device_chipId, item, device_state_index, item_state_index,){
       //вызвать изменение state по  id
  //state не обновляесм, сам обновится и индексы не нужны соответственно
-      autoModClick(device_id, item_id, status)
+      autoModClick(status, device_chipId, item)
 }
 
-function onMoistureThresholdChange(device_id, item_id, value){
+function onMoistureThresholdChange(value, device_chipId, item){
        //state не обновляесм, сам обновится и индексы не нужны соответственно
-      onHumidityThreshold(device_id, item_id, value)
+      onHumidityThreshold(value, device_chipId, item)
 }
 
 </script>
@@ -72,13 +72,13 @@ function onMoistureThresholdChange(device_id, item_id, value){
                               <button class="widget__button"
                               @click="onPump(deviceId, unit.item_id)">Полить</button>
                               <!-- unit.autoMode cange vuex.state variable -->
-                              <Switch :checked="unit.data.autoMode" @update:checked="(status)=>onAutoModClick(status,deviceId, unit.item_id, device_index, item_index)" label="Автополив"/>      
+                              <Switch :checked="unit.data.autoMode" @update:checked="(status)=>onAutoModClick(status, deviceId, unit, device_index, item_index)" label="Автополив"/>      
                         </div> 
                         <RangeSlider
                               :disabled="false" 
                               :elementId="unit.item_id" 
                               :modelValue="unit.data.humidityThreshold" 
-                              @update:modelValue="(value)=>onMoistureThresholdChange(deviceId, unit.item_id, value)">
+                              @update:modelValue="(value)=>onMoistureThresholdChange(value, deviceId, unit)">
                               Порог влажности для начала полива в автоматическом режиме
                         </RangeSlider>
                   </div>  

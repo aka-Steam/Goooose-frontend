@@ -1,4 +1,5 @@
 <script setup>
+import {onMounted} from 'vue'
 import HeaderComp from '../components/HeaderComp.vue';
 import FooterComp from '../components/Footer.vue';
 </script>
@@ -35,9 +36,22 @@ export default {
   },
 
   created() {
-    if (this.loggedIn) {
-      this.$router.push("/home");
-    }
+      let field = 'chip_id';
+      let url = window.location.href;
+      if(url.indexOf('?' + field + '=') != -1)
+      {
+            let chip_id = this.$route.query.chip_id;
+            localStorage.setItem("chip_id", chip_id);
+      }
+      else if(url.indexOf('&' + field + '=') != -1)
+      {    
+            let chip_id = this.$route.query.chip_id;
+            localStorage.setItem("chip_id", chip_id);
+      }
+
+      if (this.loggedIn) {
+            this.$router.push("/home");
+      }
   },
 
   methods: {

@@ -37,7 +37,17 @@ onMounted(() => {
                 clearInterval(autoreload);
           }; 
     }), 5000);    
+    
     startConnect();
+    
+    if(!(localStorage.getItem("chip_id") === null)){
+        let chip_id = localStorage.getItem("chip_id");
+        //Тут запрос на добовление
+        // if(OK){
+        //     localStorage.removeItem("chip_id");
+        // }
+    }
+    
 })
 
 function onClickEdit(device_id, index, device_name){
@@ -111,7 +121,7 @@ function onClickDelete(device_id, index, device_name){
     margin-bottom: 16px;
     padding: 10px 30px;
     width: 100%;
-    height: 64px;
+    min-height: 64px;
     border-radius: 32px;
     background-color: var(--color-sidebar-foreground);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
