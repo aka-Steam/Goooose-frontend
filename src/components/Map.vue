@@ -3,12 +3,12 @@
     import { useStore } from 'vuex'
     import { mapGetters, mapActions} from '../storage/map-state'
 
-    const { GET_DEVICES_FROM_API } = mapActions()
-    const { DEVICES } = mapGetters()
+    const { GET_ALL_DEVICES_FROM_API } = mapActions('devicem')
+    const { DEVICES } = mapGetters('devicem')
 
     const store = useStore()
 
-    GET_DEVICES_FROM_API()
+    GET_ALL_DEVICES_FROM_API()
             .then((response) => {
                   if (response.data){
                         console.log('Initial data arrived!');
@@ -30,8 +30,8 @@
             zoom: 12
         });
                
-        if(store.state.devices != null){
-            store.state.devices.data.forEach(data => {
+        if(store.state.devicem.devices != null){
+            store.state.devicem.devices.data.forEach(data => {
             data.items.forEach(item => {
                 let latitude = item.data.coordinate.LATITUDE;
                 let longitude = item.data.coordinate.LONGITUDE;

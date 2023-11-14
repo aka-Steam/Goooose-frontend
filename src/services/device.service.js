@@ -9,21 +9,23 @@ class DeviceService {
     return axios
     .get(API_URL,{headers: authHeader()})
     .then(response => {
-      if (response.status == 200) {
-        //console.log(response.data); 
-        localStorage.setItem('devices', JSON.stringify(response.data));          
-      }
       return response.data;
     })
   }
  
-  setDevice(id){
-    return axios.post(API_URL,{chip_id : id},{headers: authHeader()});
+  setDevice(chip_id){
+    return axios.post(API_URL,{chip_id : chip_id},{headers: authHeader()});
   }
 
-  // getDevice(id){}
-  // putDevice(id){}
-  // delDevice(id){}
+  getDevice(id){
+    return axios
+    .get(API_URL + "/" + id,{headers: authHeader()})
+    .then(response => {
+      return response.data;
+    })
+  }
+  putDevice(id){}
+  deleteDevice(id){}
 }
 
 export default new DeviceService();

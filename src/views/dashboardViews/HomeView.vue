@@ -7,37 +7,51 @@ import { startConnect } from '../../services/mqtt'
 import HeaderRoute from '../../components/HeaderRoute.vue'
 import Widget from '../../components/Widget.vue'
 
-const { GET_DEVICES_FROM_API } = mapActions()
-const { DEVICES } = mapGetters()
+// const { GET_ALL_DEVICES_FROM_API } = mapActions()
+
+
 
 const store = useStore()
-const openItems = ref([])
+const openItems = ref([]) // не знаю как это работает без заполнения, но работает ¯\_(ツ)_/¯ 
 
- GET_DEVICES_FROM_API()
-    .then((response) => {
-        if (response.data) {
-            console.log('Initial data arrived!');
-            openItems.value = new Array(store.state.devices.length).fill(false);
-        };
-    });
+const { DEVICES } = mapGetters('devicem')
 
-    //test
-// console.log('Initial data arrived!');
-// openItems.value = new Array(store.state.devices.length).fill(false);
-   // test
+store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived!'));
+
+// old code
+// GET_ALL_DEVICES_FROM_API() 
+//     .then((response) => {
+//         if (response.data) {
+//             console.log('Initial data arrived!');
+//             openItems.value = new Array(store.state.devices.length).fill(false);
+//         };
+//     });
+
 
 onMounted(() => {
-    // Думаю стоит преенести в app vue или куда-нибудь в тот район, чтобы при каждом переходе на страницу не запускалось
-    const autoreload  = setInterval(() => GET_DEVICES_FROM_API()
-    .then((response) => {
-          if (response.data){
-                console.log('Data arrived!');
-          };
-          if (store.state.auth.status.loggedIn == false){
-                clearInterval(autoreload);
-          }; 
-    }), 5000);    
+    // old code
+    // Думаю стоит преенести в app vue или куда-нибудь в тот район, чтобы при каждом переходе на страницу не запускалось.\ 
+    //как вариант в залогинивание
+    // const autoreload  = setInterval(() => GET_DEVICES_FROM_API()
+    // .then((response) => {
+    //       if (response.data){
+    //             console.log('Data arrived!');
+    //       };
+    //       if (store.state.auth.status.loggedIn == false){
+    //             clearInterval(autoreload);
+    //       }; 
+    // }), 5000);    
+    // let pricol = 0
+   
     
+    const autoreload  = setInterval(() => {
+        store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived!'));
+        
+        if (store.state.auth.status.loggedIn == false){
+            clearInterval(autoreload);
+        };
+        }, 5000);
+
     startConnect();
     
     if(!(localStorage.getItem("chip_id") === null)){
@@ -49,6 +63,7 @@ onMounted(() => {
     }
     
 })
+
 
 function onClickEdit(device_id, index, device_name){
         // Open edit device window
@@ -70,9 +85,6 @@ function onClickDelete(device_id, index, device_name){
         <section class="dashboard-content">
                 <HeaderRoute>Главная</HeaderRoute>
                 <div class="devices-space">
-                    <!-- было до -->
-                    <!-- <div v-if="DEVICES != null" v-for="(device, index) in DEVICES.data" :key="device.id"> --> 
-                    <!-- <div v-if="DEVICES != null" v-for="(device, index) in DEVICES" :key="device.id"> -->
                     <div v-if="DEVICES != null" v-for="(device, index) in DEVICES.data" :key="device.id">
                         <div class="device" @click="openItems[index] = !openItems[index]">{{ index + 1 }}&emsp;|&emsp;{{"ID-" + device.id }}
                            &emsp;|&emsp;&emsp;&emsp; {{
@@ -102,7 +114,6 @@ function onClickDelete(device_id, index, device_name){
                                 </div>
                             </div>
                     </div>
-                    <!-- {{DEVICES[1].items[1]}} -->
                 </div>
             </section>
     </main>
@@ -158,7 +169,6 @@ function onClickDelete(device_id, index, device_name){
     transition: background-color 1s ease ;
 }
 
-
 .button--trash:hover {   
     background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(105,105,105,1) 100%),var(--color-accent2);
     background-blend-mode: overlay; 
@@ -168,7 +178,6 @@ function onClickDelete(device_id, index, device_name){
     background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(105,105,105,1) 100%),var(--color-darck2);
     background-blend-mode: overlay; 
 }
-
 
 .svg-icon {
     fill: var(--color-light);
