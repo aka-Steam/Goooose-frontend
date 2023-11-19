@@ -17,7 +17,15 @@ export const devicem = {
         }
       );
     },
-    SET_DEVICES_BY_API({ commit }, chip_id) { },
+    SET_DEVICES_BY_API({ commit }, chip_id) { 
+      return DeviceService.setDevice(chip_id).then(
+        response => {
+          if (response.status == 200 && !(localStorage.getItem("chip_id") === null)) {
+            localStorage.removeItem("chip_id");
+          }
+        }
+      )
+    },
     GET_DEVICE_FROM_API({ commit }, id) { },
     UPDATE_DEVICE_FROM_API({ commit }, id) { },
     DELETE_DEVICES_BY_API({ commit }, id) { },
