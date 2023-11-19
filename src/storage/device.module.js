@@ -28,7 +28,9 @@ export const devicem = {
     },
     GET_DEVICE_FROM_API({ commit }, id) { },
     UPDATE_DEVICE_FROM_API({ commit }, id) { },
-    DELETE_DEVICES_BY_API({ commit }, id) { },
+    DELETE_DEVICES_BY_API({ commit }, id) { 
+      return DeviceService.deleteDevice(id)
+    },
   },
   mutations: {
     SET_DEVICES_TO_STATE: (state, devices) => {

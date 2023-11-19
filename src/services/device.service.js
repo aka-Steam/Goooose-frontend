@@ -25,7 +25,9 @@ class DeviceService {
     })
   }
   putDevice(id){}
-  deleteDevice(id){}
+  deleteDevice(id){
+    return axios.delete(API_URL + "/" + id,{headers: authHeader()})
+  }
 }
 
 export default new DeviceService();

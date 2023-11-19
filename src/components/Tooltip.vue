@@ -28,12 +28,13 @@
 }
 
 .tooltip {
-      color: #ffffff;
+      color: var(--color-text);
       text-align: center;
       padding: 5px 10px;
       border-radius: 2px;
 
       min-width: 120px;
+      max-width: calc(100vw - 40px); /*For mobile devices. 280px with a screen width of 320px*/
       top: calc(100% + 5px);
       right: -80px;
       margin-left: -60px;
