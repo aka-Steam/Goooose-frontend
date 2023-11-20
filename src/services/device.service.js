@@ -24,7 +24,17 @@ class DeviceService {
       return response.data;
     })
   }
-  putDevice(id){}
+
+  putDevice(id, newName, newDescription){
+    return axios
+    .put(API_URL + "/" + id,{name : newName, description : newDescription},{headers: authHeader()})
+    .then(responce=>{
+      if(responce.status == 200){
+        console.log("Successfully updated.")
+      }
+    })
+  }
+
   deleteDevice(id){
     return axios.delete(API_URL + "/" + id,{headers: authHeader()})
   }

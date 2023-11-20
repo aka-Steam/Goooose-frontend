@@ -77,7 +77,7 @@ export default {
 
 .user-card{
   padding: 10px;
-  background-color:var(--color-sidebar-middleground);
+  background-color:var(--color-sidebar-foreground);
   border-radius: 20px;
 }
 .logout-button {
