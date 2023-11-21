@@ -53,6 +53,15 @@ export default {
             if (!(localStorage.getItem("chip_id") === null)) {
                   this.$store.dispatch('devicem/SET_DEVICES_BY_API', localStorage.getItem("chip_id"));
             }
+
+            const autoreload = setInterval(() => {
+                        this.$store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived!'));
+
+                        if (this.$store.state.auth.status.loggedIn == false) {
+                              clearInterval(autoreload);
+                        };
+                  }, 5000);
+            
             this.$router.push("/home");
       }
   },
