@@ -28,7 +28,20 @@ function onClickSave(id){
         store.dispatch('devicem/UPDATE_DEVICE_FROM_API',{id : unit.value.id, newName: newName, newDescription : newDescription})
     }
     else if (unit.value.type =="item"){
-        console.log('item')
+        console.log("id: " + unit.value.id)
+        console.log(unit.value.type);
+        console.log(typeof newName);
+        console.log(typeof newDescription);
+        console.log(unit.value.autoMode);
+        console.log(unit.value.humidityThreshold);
+        store.dispatch('devicem/UPDATE_ITEM_FROM_API',
+        {
+            id : unit.value.id,
+            name: newName,
+            description : newDescription,
+            humidityThreshold: unit.value.humidityThreshold,
+            autoMode: unit.value.autoMode
+        })
     }
 }
 

@@ -45,13 +45,13 @@ onMounted(() => {
     // let pricol = 0
 
 
-    // const autoreload = setInterval(() => {
-    //     store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived!'));
+    const autoreload = setInterval(() => {
+        store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived!'));
 
-    //     if (store.state.auth.status.loggedIn == false) {
-    //         clearInterval(autoreload);
-    //     };
-    // }, 5000);
+        if (store.state.auth.status.loggedIn == false) {
+            clearInterval(autoreload);
+        };
+    }, 5000);
 
     startConnect();
 
@@ -69,10 +69,16 @@ function onClickEdit(type, id, name, description) {
 
 function onClickDelete(device_id, index, device_name) {
     //Are you sure you want to delete network No. ""?
-    device_name = device_name === null? "" : device_name;
-    if (confirm("Вы уверены, что хотите удалить сеть №" + (index + 1) + " " + device_name + "?")) {
-        store.dispatch('devicem/DELETE_DEVICES_BY_API', device_id);
-        // Send delete querry
+    device_name = device_name === null ? "" : device_name;
+    if (store.state.devicem.devices.data[index].items.length > 0) {
+        console.log("index leb " + store.state.devicem.devices.data[index].items.length)
+        alert("Нельзя удалить сеть, пока она содержит подчинённые устройства. Сначала удалите все подчинённые устройства");
+    }
+    else {
+        if (confirm("Вы уверены, что хотите удалить сеть №" + (index + 1) + " " + device_name + "?")) {
+            store.dispatch('devicem/DELETE_DEVICES_BY_API', device_id);
+            // Send delete querry
+        }
     }
 }
 

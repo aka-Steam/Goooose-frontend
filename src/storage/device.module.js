@@ -1,4 +1,5 @@
 import DeviceService from '../services/device.service';
+import DeviceItemsService from '../services/deviceItems.service';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = {
@@ -32,6 +33,13 @@ export const devicem = {
     },
     DELETE_DEVICES_BY_API({ commit }, id) { 
       return DeviceService.deleteDevice(id)
+    },
+    // Actions with device items 
+    UPDATE_ITEM_FROM_API({ commit }, item) { 
+      return DeviceItemsService.putDeviceItem(item)
+    },
+    DELETE_ITEM_BY_API({ commit }, id) { 
+      return DeviceItemsService.deleteDeviceItem(id)
     },
   },
 
