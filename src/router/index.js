@@ -52,6 +52,12 @@ const router = createRouter({
       path: '/map',
       name: 'map',
       component: () => import('../views/dashboardViews/MapView.vue')
+    },
+    {
+      path: '/home/edit',
+      name: 'edit',
+      component: () => import('../views/dashboardViews/EditView.vue'),
+      props: true
     }
   ]
 })

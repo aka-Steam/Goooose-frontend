@@ -14,6 +14,8 @@ function isNarrow(){
     }}
 
 const narrowMenu = ref(isNarrow());
+
+startConnect();
 </script>
 
 <template>
@@ -43,6 +45,7 @@ const narrowMenu = ref(isNarrow());
                   </div>
 
                   <div class="sidebar-menu__middleground">
+                        <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div>
                         <nav class="nav">
                               <ul class="nav__list">
                                     <li class="nav__list-item">
@@ -107,14 +110,14 @@ const narrowMenu = ref(isNarrow());
                                     </li>
                               </ul>
                         </nav>
-                        <div class="developer-operations">
+                        <!-- <div class="developer-operations">
                                 <div>developer operations</div>
                                 <button @click="console.log(store)">Show veux storage</button> 
                                 <button @click="console.log(JSON.parse(JSON.stringify(store.getters.DEVICES.data)))">Show veux devices</button>    
                                 <button @click = "devices.getDevices">getDevices</button>
 
                                 <button @click="startConnect">Mqtt connect</button>                 
-                         </div>
+                         </div> -->
                         <RouterLink to="/profile" class="profile">
                               <div class="profile__icon">
                                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
@@ -207,6 +210,7 @@ const narrowMenu = ref(isNarrow());
             width: 300px;
             height: calc(100vh - 60px);
 
+            position: relative;
             border-radius: 20px 0 0 0;
             background-color: var(--color-sidebar-middleground);
 
@@ -334,7 +338,22 @@ const narrowMenu = ref(isNarrow());
             flex-wrap: wrap;
       }
 
+      .mqtt-indicator{
+            cursor: pointer;
+            position: absolute;
+            top: 18px;
+            right: 28px;
+            width: 30px;
+            height: 30px;
+            border-radius: 9999px;
+            background-color: var(--color-background-dashboard);
+            box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.25) inset;
+      }
 
+      .mqtt-indicator.conected{
+            background-color: var(--color-accent);
+            box-shadow: none;
+      }
 
       /* narrow menu */
       .sidebar.narrow{
@@ -387,6 +406,11 @@ const narrowMenu = ref(isNarrow());
             display: none;
       }
 
+      .narrow .mqtt-indicator{
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+      }
       .narrow .developer-operations {
             display: none;
       }

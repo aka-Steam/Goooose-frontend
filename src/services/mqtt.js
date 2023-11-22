@@ -1,3 +1,8 @@
+import { createConditionalExpression } from "@vue/compiler-core";
+import DeviceItemsService from './device.service'
+import authHeader from './auth-header';
+import axios from 'axios';
+const API_URL = import.meta.env.VITE_API_URL + '/device/item/';
 // Используемые топики
 var topic_test = "test/pub";
 var topic_control = "device/";
@@ -44,6 +49,7 @@ function onConnect() {
 
 	// Подписываемся на топик
 	client.subscribe(topic);
+	document.getElementById('mqtt-indicator').classList.add('conected');
 }
 
 // Вызывается, когда клиент теряет свое соединение
@@ -53,6 +59,8 @@ function onConnectionLost(responseObject) {
 	if (responseObject.errorCode !== 0) {
 		console.log('ERROR: ' +  responseObject.errorMessage );
 	}
+
+	document.getElementById('mqtt-indicator').classList.remove('conected');
 }
 
 // Вызывается при поступлении сообщения
@@ -72,7 +80,60 @@ export function startDisconnect() {
 
 // Вызывается при нажатии кнопки "полить"
 export function onPump(device, device_item) {
-	let message = new Paho.MQTT.Message(device_item +":pump:on");
+	console.log(typeof(device_item));
+	let message = new Paho.MQTT.Message(~~(device_item/100) + ":" + (device_item % 100) +":pump:on");
 	message.destinationName = topic_control + device + "/control";
+	client.send(message);
+}
+
+// Вызывается при изменении состояния автоматического режима
+export function autoModClick(automod, device_chipId, item_addr) {
+	let status = "0"
+	// let payload = ~~(device_item/100) + ":" + (device_item % 100);
+	let payload = ~~(item_addr/100) + ":" + (item_addr % 100);
+	if (automod) {
+		payload +=":automod:1";
+
+		// // Сохраняем состояние переключателя автоматического режима в БД
+		// status = "checked"
+		// $.ajax({
+		// 	type: 'PUT',
+		// 	url: API_URL + item.id,
+		// 	data: {
+		// 		data: item.data
+		// 	},
+		// 	headers: authHeader(),
+		// 	error: function (request, status, error) {
+		// 		// checkbox.checked = !checkbox.checked;
+		// 		// alert(request.responseText);
+		// 		// message = new Paho.MQTT.Message("0");
+		// 		console.log("произошла ошибка")
+		// 	}
+		// })
+	} else {
+		payload +=":automod:0";
+		// status = ""
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: 'actions/setAutomode.php',
+		// 	data: "automode=" + status,
+		// 	error: function (request, status, error) {
+		// 		checkbox.checked = !checkbox.checked
+		// 		alert(request.responseText);
+		// 		message = new Paho.MQTT.Message("1");
+		// 	}
+		// })
+	}
+
+	let message = new Paho.MQTT.Message(payload);
+	message.destinationName = topic_control + device_chipId + "/control"
+	client.send(message);
+}
+
+export function onHumidityThreshold(newValue, device_chipId, item_addr){
+	let status = "0"
+	let payload = ~~(item_addr/100) + ":" + (item_addr % 100) + ":soilHumThreshold:" + newValue;
+	let message = new Paho.MQTT.Message(payload);
+	message.destinationName = topic_control + device_chipId + "/control"
 	client.send(message);
 }
