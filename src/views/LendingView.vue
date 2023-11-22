@@ -5,10 +5,23 @@ import FooterComp from '../components/Footer.vue';
 <template>
      <HeaderComp /> 
      <main class="main">
-            <div style="margin: 20px; text-align: center; color:var(--color-text);">Landing page</div>
-            <hr>
-            <img src="../assets/images/UnderConstruction.png" alt="Under construction"
-                  style="width: 90%;display: block; margin: 30px auto; box-shadow: 0px 0px 30px rgba(33, 30, 19, 0.284);">
+      <div class="image-container">
+            <img class="img" src="../assets/images/Goosi.jpg" alt="goosi">
+      </div>
       </main>
+            
+      
       <FooterComp/>
 </template>
+<style scoped>
+.image-container{
+      width: 100vw;
+      height: calc(100vh-70px);
+      overflow: hidden;
+}
+.img{
+      width: 100%;
+      height: auto;
+      margin-top: -300px;
+}
+</style>

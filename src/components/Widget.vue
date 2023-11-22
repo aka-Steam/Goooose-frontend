@@ -25,15 +25,31 @@ const props = defineProps({
       }
 })
 
-function onAutoModClick(status, device_chipId, item, device_state_index, item_state_index,) {
-      //вызвать изменение state по  id
-      //state не обновляесм, сам обновится и индексы не нужны соответственно
-      autoModClick(status, device_chipId, item)
+function onAutoModClick(status, device_chipId, item_addr) {
+      store.dispatch('devicem/UPDATE_ITEM_FROM_API',
+        {
+            id :  props.unit.id,
+            name : props.unit.name,
+            description : props.unit.description,
+            humidityThreshold: props.unit.data.humidityThreshold,
+            autoMode: status
+        })
+
+      autoModClick(status, device_chipId, item_addr)
 }
 
-function onMoistureThresholdChange(value, device_chipId, item) {
-      //state не обновляесм, сам обновится и индексы не нужны соответственно
-      onHumidityThreshold(value, device_chipId, item)
+function onMoistureThresholdChange(value, device_chipId, item_addr) {
+
+      store.dispatch('devicem/UPDATE_ITEM_FROM_API',
+        {
+            id :  props.unit.id,
+            name : props.unit.name,
+            description : props.unit.description,
+            humidityThreshold: value,
+            autoMode: props.unit.data.autoMode
+        })
+
+      onHumidityThreshold(value, device_chipId, item_addr)
 }
 
 function onClickEdit(type, id, name, description) {
@@ -94,11 +110,11 @@ function nullConvert(value) {
                               <button class="widget__button" @click="onPump(deviceId, unit.item_id)">Полить</button>
                               <!-- unit.autoMode cange vuex.state variable -->
                               <Switch :checked="unit.data.autoMode"
-                                    @update:checked="(status) => onAutoModClick(status, deviceId, unit, device_index, item_index)"
+                                    @update:checked="(status) => onAutoModClick(status, deviceId, unit.item_id)"
                                     label="Автополив" />
                         </div>
                         <RangeSlider :disabled="false" :elementId="unit.item_id" :modelValue="unit.data.humidityThreshold"
-                              @update:modelValue="(value) => onMoistureThresholdChange(value, deviceId, unit)">
+                              @update:modelValue="(value) => onMoistureThresholdChange(value, deviceId, unit.item_id)">
                               Порог влажности для начала полива в автоматическом режиме
                         </RangeSlider>
                   </div>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, onBeforeUnmount } from 'vue'
 import Menu from '../../components/SidebarMenu.vue'
 import Tooltip from '../../components/Tooltip.vue'
 import { useStore } from 'vuex'
@@ -8,55 +8,27 @@ import { startConnect } from '../../services/mqtt'
 import HeaderRoute from '../../components/HeaderRoute.vue'
 import Widget from '../../components/Widget.vue'
 
-// const { GET_ALL_DEVICES_FROM_API } = mapActions()
-
-
-
 const store = useStore()
 const openItems = ref([]) // не знаю как это работает без заполнения, но работает ¯\_(ツ)_/¯ 
 
 const { DEVICES } = mapGetters('devicem')
 
-store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived!'));
+store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived from home page!'));
 
-// old code
-// GET_ALL_DEVICES_FROM_API() 
-//     .then((response) => {
-//         if (response.data) {
-//             console.log('Initial data arrived!');
-//             openItems.value = new Array(store.state.devices.length).fill(false);
-//         };
-//     });
-
+let autoreloadIntervalID;
 
 onMounted(() => {
-    // old code
-    // Думаю стоит преенести в app vue или куда-нибудь в тот район, чтобы при каждом переходе на страницу не запускалось.\ 
-    //как вариант в залогинивание
-    // const autoreload  = setInterval(() => GET_DEVICES_FROM_API()
-    // .then((response) => {
-    //       if (response.data){
-    //             console.log('Data arrived!');
-    //       };
-    //       if (store.state.auth.status.loggedIn == false){
-    //             clearInterval(autoreload);
-    //       }; 
-    // }), 5000);    
-    // let pricol = 0
-
-
-    const autoreload = setInterval(() => {
-        store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived!'));
-
+    autoreloadIntervalID = setInterval(() => {
         if (store.state.auth.status.loggedIn == false) {
-            clearInterval(autoreload);
+            clearInterval(autoreloadIntervalID);
         };
-    }, 5000);
-
-    startConnect();
-
+        store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived from home page!'));
+    }, 3000);
 })
 
+onBeforeUnmount(()=>{
+    clearInterval(autoreloadIntervalID);
+})
 
 function onClickEdit(type, id, name, description) {
     store.state.editable = {
@@ -76,8 +48,8 @@ function onClickDelete(device_id, index, device_name) {
     }
     else {
         if (confirm("Вы уверены, что хотите удалить сеть №" + (index + 1) + " " + device_name + "?")) {
-            store.dispatch('devicem/DELETE_DEVICES_BY_API', device_id);
             // Send delete querry
+            store.dispatch('devicem/DELETE_DEVICES_BY_API', device_id);
         }
     }
 }
@@ -85,6 +57,7 @@ function onClickDelete(device_id, index, device_name) {
 function nullConvert(value){
     return value === null? "" : value; 
 }
+
 </script> 
 
 <template>

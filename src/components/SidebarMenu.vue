@@ -14,6 +14,8 @@ function isNarrow(){
     }}
 
 const narrowMenu = ref(isNarrow());
+
+startConnect();
 </script>
 
 <template>
