@@ -54,7 +54,8 @@ function onClickSave(id){
               <div class="container">
                   
                 <div class="form">
-                    <label class="label">
+                    <div class="fields">
+                        <label class="label">
                         <span class="span">Название:</span>
                         <input name="name" id="name" class="input" type="text" :value="unit.name">
                     </label>
@@ -63,8 +64,9 @@ function onClickSave(id){
                         <span class="span">Описание:</span>
                         <textarea name="description" id="description" class="textarea" cols="30" rows="10" :value="unit.description"></textarea>
                     </label>
+                    </div>
 
-                    <button @click="onClickSave(unit.id)">Сохранить</button>
+                    <button class="button" @click="onClickSave(unit.id)">Сохранить</button>
                 </div>
               </div>
           </section>
@@ -86,16 +88,42 @@ function onClickSave(id){
 .label{
     display: block;
 }
-.input{
-    width: 100%;
-    color: var(--color-text);
-    background-color:var(--color-sidebar-foreground);
-}
+
+.input,
 .textarea{
     width: 100%;
-    display: block;
-
+    padding: 0 12px;
     color: var(--color-text);
     background-color:var(--color-sidebar-foreground);
+    border: 1px solid var(--color-text);
 }
+
+.input{
+    height: 1.6rem;
+    border-radius: 999px;
+}
+.textarea{
+    display: block;
+    padding: 8px  12px;
+    border-radius: 10px 10px 1px 10px;
+}
+
+.fields{
+    margin-bottom: 12px;
+}
+.button {
+    cursor:pointer;
+    display: block; 
+    padding: 4px 12px;
+    color: var(--color-text-light);
+    background-color: var(--color-darck);
+    border: 1px solid var(--color-text);
+    border-radius: 30px;
+    transition: 0.2s;
+}
+
+.button:hover {
+    background-color: var(--color-darck2);  
+}
+
 </style>

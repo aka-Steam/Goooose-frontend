@@ -10,6 +10,7 @@ import Widget from '../../components/Widget.vue'
 
 const store = useStore()
 const openItems = ref([]) // не знаю как это работает без заполнения, но работает ¯\_(ツ)_/¯ 
+//openItems.value = new Array(store.state.devices.length).fill(false);
 
 const { DEVICES } = mapGetters('devicem')
 
