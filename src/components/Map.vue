@@ -35,15 +35,42 @@
             data.items.forEach(item => {
                 let latitude = item.data.coordinate.LATITUDE;
                 let longitude = item.data.coordinate.LONGITUDE;
-                // console.log(LATITUDE, LONGITUDE);
+                
                 let point = new ymaps.Placemark([latitude, longitude], {
-                    balloonContent: 'device: ' + item.name
+                    balloonContent: '<strong>' + item.name + '</strong><br>' +
+                    '<span>Температура воздха: ' + item.data.sensors.AIR_TEMPERATURE + "&deg;C" + '</span><br>' +
+                    '<span>Влажность воздуха: ' + item.data.sensors.AIR_HUMIDITY + "%" + '</span><br>' +
+                    '<span>Влажность почвы: ' + item.data.sensors.SOIL_HUMIDITY + "%" + '</span><br>' +
+                    '<span>Температура почвы: ' + item.data.sensors.SOIL_TEMPERATURE + "&deg;C" + '</span><br>' +
+                    '<span>Содержание CO2: ' + item.data.sensors.AIR_QUALITY + "ppm" + ' </span>'
                 }, {
                     preset: 'islands#circleDotIcon',
                     iconColor: '#FF7A00',
                     iconFillStyle: '#000000'
                 })
+
+                // Создаем круг.
+                let radius = new ymaps.Circle([
+                    // Координаты центра круга.
+                    [latitude, longitude],
+                    // Радиус круга в метрах.
+                    4000
+                ],{}, {
+                    // Задаем опции круга.
+                    // Цвет заливки.
+                    // Последний байт (77) определяет прозрачность.
+                    // Прозрачность заливки также можно задать используя опцию "fillOpacity".
+                    fillColor: "#FF7A0035",
+                    // Цвет обводки.
+                    strokeColor: "#1F1E2E",
+                    // Прозрачность обводки.
+                    strokeOpacity: 0.9,
+                    // Ширина обводки в пикселях.
+                    strokeWidth: 1
+                });
+
                 myMap.geoObjects.add(point);
+                myMap.geoObjects.add(radius);
             })
         });
         };
