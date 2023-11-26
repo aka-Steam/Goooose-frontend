@@ -25,4 +25,9 @@
 
             background-color: var(--color-text);
       }
+      @media(max-width: 767px){
+            .header-route::before{
+                  width: 100%;
+            }   
+      }
 </style>

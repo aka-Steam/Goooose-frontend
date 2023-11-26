@@ -85,7 +85,7 @@ export default {
       <HeaderComp /> 
       <main class="main">
             <section class="section-authorization">
-                  <Form @submit="handleLogin" :validation-schema="schema">
+                  <Form @submit="handleLogin" :validation-schema="schema" class="form">
                         <h1 class="form__title">Войдите в систему</h1>
                         <div class="form__group">
                               <label for="login-username" class="form__label">Имя пользователя</label>

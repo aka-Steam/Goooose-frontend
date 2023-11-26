@@ -89,40 +89,11 @@ export function onPump(device, device_item) {
 // Вызывается при изменении состояния автоматического режима
 export function autoModClick(automod, device_chipId, item_addr) {
 	let status = "0"
-	// let payload = ~~(device_item/100) + ":" + (device_item % 100);
 	let payload = ~~(item_addr/100) + ":" + (item_addr % 100);
 	if (automod) {
 		payload +=":automod:1";
-
-		// // Сохраняем состояние переключателя автоматического режима в БД
-		// status = "checked"
-		// $.ajax({
-		// 	type: 'PUT',
-		// 	url: API_URL + item.id,
-		// 	data: {
-		// 		data: item.data
-		// 	},
-		// 	headers: authHeader(),
-		// 	error: function (request, status, error) {
-		// 		// checkbox.checked = !checkbox.checked;
-		// 		// alert(request.responseText);
-		// 		// message = new Paho.MQTT.Message("0");
-		// 		console.log("произошла ошибка")
-		// 	}
-		// })
 	} else {
 		payload +=":automod:0";
-		// status = ""
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: 'actions/setAutomode.php',
-		// 	data: "automode=" + status,
-		// 	error: function (request, status, error) {
-		// 		checkbox.checked = !checkbox.checked
-		// 		alert(request.responseText);
-		// 		message = new Paho.MQTT.Message("1");
-		// 	}
-		// })
 	}
 
 	let message = new Paho.MQTT.Message(payload);

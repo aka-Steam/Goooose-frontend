@@ -43,6 +43,9 @@ a{
   .main {
     padding-top: 52px;
   }
+  .dashboard-main{
+    display: block;
+  }
   .click-area-wrapper{
     min-width: 40px;
     min-height: 40px;
