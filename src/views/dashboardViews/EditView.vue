@@ -66,7 +66,7 @@ function onClickSave(id){
                     </label>
                     </div>
 
-                    <button class="button" @click="onClickSave(unit.id)">Сохранить</button>
+                    <RouterLink to="/home" class="button" @click="onClickSave(unit.id)">Сохранить</RouterLink>
                 </div>
               </div>
           </section>

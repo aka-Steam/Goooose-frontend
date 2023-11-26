@@ -7,16 +7,6 @@ import { startConnect } from '../services/mqtt'
 
 const store = useStore();
 
-// function isNarrow(){
-//       console.log(window.innerWidth);
-//       if (window.innerWidth >= 1200) {
-//             return false;
-//     } else {
-//             return true;
-//     }}
-
-// const narrowMenu = ref(isNarrow());
-
 const desktop = computed(()=>{
       if (window.innerWidth > 767) {
             return desktop.value = true;
