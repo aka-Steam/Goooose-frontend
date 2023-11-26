@@ -1,19 +1,21 @@
 <script setup>
 import { ref, computed, onBeforeUnmount} from 'vue'
+import { useStore } from 'vuex'
 import { MqResponsive } from "vue3-mq";
-import store from '../storage';
 import devices from '../services/device.service.js'
 import { startConnect } from '../services/mqtt'
 
-function isNarrow(){
-      console.log(window.innerWidth);
-      if (window.innerWidth >= 1200) {
-            return false;
-    } else {
-            return true;
-    }}
+const store = useStore();
 
-const narrowMenu = ref(isNarrow());
+// function isNarrow(){
+//       console.log(window.innerWidth);
+//       if (window.innerWidth >= 1200) {
+//             return false;
+//     } else {
+//             return true;
+//     }}
+
+// const narrowMenu = ref(isNarrow());
 
 const desktop = computed(()=>{
       if (window.innerWidth > 767) {
@@ -27,12 +29,11 @@ startConnect();
 </script>
 
 <template>
-
-      <aside v-if="desktop" class="sidebar desktop" v-bind:class="{ narrow: narrowMenu }">
-            <div class="sidebar-menu" v-bind:class="{ narrow: narrowMenu }">
+      <aside v-if="desktop" class="sidebar desktop" v-bind:class="{ narrow: store.state.narrowMenu }">
+            <div class="sidebar-menu" v-bind:class="{ narrow: store.state.narrowMenu }">
                   <div class="logo-container">
                         <RouterLink to="/">
-                              <MqResponsive group v-if="!narrowMenu">
+                              <MqResponsive group v-if="!store.state.narrowMenu">
                                     <template #dark>
                                           <img alt="Goooose logo" class="logo" src="@/assets/images/logoLight.svg" />
                                     </template>
@@ -49,7 +50,7 @@ startConnect();
                                     </template>
                               </MqResponsive>
                         </RouterLink>
-                        <div @click="narrowMenu = !narrowMenu" class="indicator"></div>
+                        <div @click="store.state.narrowMenu = !store.state.narrowMenu" class="indicator"></div>
                   </div>
 
                   <div class="sidebar-menu__middleground">
@@ -118,14 +119,6 @@ startConnect();
                                     </li>
                               </ul>
                         </nav>
-                        <!-- <div class="developer-operations">
-                                <div>developer operations</div>
-                                <button @click="console.log(store)">Show veux storage</button> 
-                                <button @click="console.log(JSON.parse(JSON.stringify(store.getters.DEVICES.data)))">Show veux devices</button>    
-                                <button @click = "devices.getDevices">getDevices</button>
-
-                                <button @click="startConnect">Mqtt connect</button>                 
-                         </div> -->
                         <RouterLink to="/profile" class="profile">
                               <div class="profile__icon">
                                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none"
@@ -148,15 +141,7 @@ startConnect();
             <div class="top">
                         <div class="logo-container">
                               <RouterLink to="/">
-                                    <MqResponsive group v-if="!narrowMenu">
-                                          <template #dark>
-                                                <img alt="Goooose logo" class="logo" src="@/assets/images/logoLight.svg" />
-                                          </template>
-                                          <template #light>
-                                                <img alt="Goooose logo" class="logo" src="@/assets/images/logoDark.svg" />
-                                          </template>
-                                    </MqResponsive>
-                                    <MqResponsive group v-else>
+                                    <MqResponsive group>
                                           <template #dark>
                                                 <img alt="Goooose logo mini" class="logo" src="@/assets/images/logoLightMini.svg" />
                                           </template>

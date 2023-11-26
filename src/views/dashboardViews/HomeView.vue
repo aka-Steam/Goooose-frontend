@@ -117,6 +117,7 @@ function nullConvert(value){
 <style scoped>
 .devices-space {
     padding: 20px;
+    margin-bottom: 100px;
 }
 
 .device {

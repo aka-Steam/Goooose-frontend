@@ -7,6 +7,9 @@ import authHeader from '../services/auth-header';
 const API_URL = import.meta.env.VITE_API_URL + '/device';
 
 const store = createStore({
+  state: {
+    narrowMenu: (window.innerWidth >= 1200)?false:true
+  },
   modules: {
     auth,
     devicem
