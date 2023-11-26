@@ -35,6 +35,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        flex-wrap: nowrap;
       }
       .label {
         margin: 0 12px;
@@ -119,4 +120,10 @@
         background-color: var(--dark-gray);
         border-color: var(--dark-gray);
       } */
+      @media (max-width:360px) {
+        .container {
+          flex-wrap: wrap;
+        }
+        
+      }
     </style>

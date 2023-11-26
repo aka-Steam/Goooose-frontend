@@ -74,7 +74,7 @@ function nullConvert(value){
                         <div class="device__id">{{ "ID-" + device.id }}</div>
                         <div class="device__splitter">|</div>
                         <div class="device__name">{{device.name }}</div>
-                        <div class="device__splitter">|</div> 
+                        <div class="device__splitter">|</div>
                         <div class="device__buttons">
                             <Tooltip :text="nullConvert(device.description)" class="button button--info">
                             <svg class="svg-icon svg-icon--info" width="26px" height="26px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
@@ -124,6 +124,9 @@ function nullConvert(value){
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px 0;
+    flex-wrap: wrap;
+
     margin-bottom: 16px;
     padding: 10px 30px;
     width: 100%;
@@ -154,6 +157,7 @@ function nullConvert(value){
 
 .device__splitter{
     margin: 0 12px;
+    display: inline-block;
 }
 .device__index{
     width: 76px;

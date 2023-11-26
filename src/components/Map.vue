@@ -94,4 +94,9 @@
         border-radius: 20px;
         overflow: hidden;
     }
+    @media (max-width: 767px) {
+        #map {
+        height: calc(100vh - 215px);
+        } 
+    }
 </style>
