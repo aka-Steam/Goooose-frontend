@@ -15,13 +15,22 @@ import FooterComp from '../components/Footer.vue';
 </template>
 <style scoped>
 .image-container{
-      width: 100vw;
-      height: calc(100vh-70px);
+      width: 100%;
+      height: 100vh;
       overflow: hidden;
 }
 .img{
       width: 100%;
       height: auto;
       margin-top: -300px;
+}
+
+@media (max-width: 767px) {
+      .img{
+      width: auto;
+      height: 100%;
+      margin-top: 0px;
+}
+ 
 }
 </style>

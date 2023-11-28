@@ -4,13 +4,12 @@ import Menu from '../../components/SidebarMenu.vue'
 import Tooltip from '../../components/Tooltip.vue'
 import { useStore } from 'vuex'
 import { mapGetters, mapActions } from '../../storage/map-state'
-import { startConnect } from '../../services/mqtt'
 import HeaderRoute from '../../components/HeaderRoute.vue'
 import Widget from '../../components/Widget.vue'
 
 const store = useStore()
 const openItems = ref([]) // не знаю как это работает без заполнения, но работает ¯\_(ツ)_/¯ 
-//openItems.value = new Array(store.state.devices.length).fill(false);
+//openItems.value = new Array(store.state.devices.length).fill(false); // пример заполнения
 
 const { DEVICES } = mapGetters('devicem')
 

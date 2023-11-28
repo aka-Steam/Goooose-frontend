@@ -20,8 +20,8 @@ export default {
 
   methods: {
     logOut() {
-      localStorage.clear();
       this.$store.dispatch('auth/logout');
+      localStorage.clear();
       this.$router.push('/login');
     }
   }
@@ -36,7 +36,7 @@ export default {
       <HeaderRoute>Профиль</HeaderRoute>
 
       <div class="container">
-        <article class="user-card">
+        <article v-if="!(currentUser === null)" class="user-card">
           <div class="jumbotron">
             <h3>
               <strong>{{ currentUser.data.user.username }}</strong>&emsp;&emsp;

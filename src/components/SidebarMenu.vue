@@ -3,7 +3,7 @@ import { ref, computed, onBeforeUnmount} from 'vue'
 import { useStore } from 'vuex'
 import { MqResponsive } from "vue3-mq";
 import devices from '../services/device.service.js'
-import { startConnect } from '../services/mqtt'
+import { startConnect, startDisconnect } from '../services/mqtt'
 
 const store = useStore();
 
@@ -16,6 +16,10 @@ const desktop = computed(()=>{
 });
 
 startConnect();
+
+onBeforeUnmount(()=>{
+      startDisconnect();
+})
 </script>
 
 <template>
