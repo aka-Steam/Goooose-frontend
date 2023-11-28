@@ -81,7 +81,7 @@ export function startDisconnect() {
 // Вызывается при нажатии кнопки "полить"
 export function onPump(device, device_item) {
 	console.log(typeof(device_item));
-	let message = new Paho.MQTT.Message(~~(device_item/100) + ":" + (device_item % 100) +":pump:on");
+	let message = new Paho.MQTT.Message(~~(device_item / 256) + ":" + (device_item % 256) +":pump:on");
 	message.destinationName = topic_control + device + "/control";
 	client.send(message);
 }
@@ -89,7 +89,7 @@ export function onPump(device, device_item) {
 // Вызывается при изменении состояния автоматического режима
 export function autoModClick(automod, device_chipId, item_addr) {
 	let status = "0"
-	let payload = ~~(item_addr/100) + ":" + (item_addr % 100);
+	let payload = ~~(item_addr / 256) + ":" + (item_addr % 256);
 	if (automod) {
 		payload +=":automod:1";
 	} else {
@@ -103,7 +103,7 @@ export function autoModClick(automod, device_chipId, item_addr) {
 
 export function onHumidityThreshold(newValue, device_chipId, item_addr){
 	let status = "0"
-	let payload = ~~(item_addr/100) + ":" + (item_addr % 100) + ":soilHumThreshold:" + newValue;
+	let payload = ~~(item_addr / 256) + ":" + (item_addr % 256) + ":soilHumThreshold:" + newValue;
 	let message = new Paho.MQTT.Message(payload);
 	message.destinationName = topic_control + device_chipId + "/control"
 	client.send(message);

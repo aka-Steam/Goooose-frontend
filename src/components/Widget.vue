@@ -17,8 +17,8 @@ const props = defineProps({
             default: 0
       },
       deviceId: {
-            type: Number,
-            default: 0
+            type: String,
+            default: "0"
       },
       unit: {
             type: Object
@@ -31,11 +31,25 @@ function onAutoModClick(status, device_chipId, item_addr) {
             id :  props.unit.id,
             name : props.unit.name,
             description : props.unit.description,
-            humidityThreshold: props.unit.data.humidityThreshold,
+            humidityThreshold: props.unit.data.humidityThreshold>=1?props.unit.data.humidityThreshold:1,
             autoMode: status
         })
 
       autoModClick(status, device_chipId, item_addr)
+}
+
+
+function automodOff(device_chipId, item_addr) {
+      store.dispatch('devicem/UPDATE_ITEM_FROM_API',
+        {
+            id :  props.unit.id,
+            name : props.unit.name,
+            description : props.unit.description,
+            humidityThreshold: props.unit.data.humidityThreshold>=1?props.unit.data.humidityThreshold:1,
+            autoMode: false
+        })
+
+      autoModClick(false, device_chipId, item_addr)
 }
 
 function onMoistureThresholdChange(value, device_chipId, item_addr) {
@@ -113,10 +127,11 @@ function nullConvert(value) {
                                     @update:checked="(status) => onAutoModClick(status, deviceId, unit.item_id)"
                                     label="Автополив" />
                         </div>
-                        <RangeSlider :disabled="false" :elementId="unit.item_id" :modelValue="unit.data.humidityThreshold"
+                        <RangeSlider :disabled="false" :elementId="unit.item_id" :modelValue="parseInt(unit.data.humidityThreshold, 10)"
                               @update:modelValue="(value) => onMoistureThresholdChange(value, deviceId, unit.item_id)">
                               Порог влажности для начала полива в автоматическом режиме
                         </RangeSlider>
+                        <span class="costil" @click="automodOff(deviceId, unit.item_id)"></span>
                   </div>
                   <div class="buttons">
                         <Tooltip :text="nullConvert(unit.description)" class="button button--info">
@@ -235,5 +250,13 @@ function nullConvert(value) {
 
 .svg-icon--info {
       fill: var(--color-text);
+}
+
+.costil{
+      cursor: pointer;
+      display:inline-block;
+      content: "";
+      width: 10px;
+      height: 10px;
 }
 </style>
