@@ -26,6 +26,7 @@ const props = defineProps({
 })
 
 function onAutoModClick(status, device_chipId, item_addr) {
+      console.log("status " + status)
       store.dispatch('devicem/UPDATE_ITEM_FROM_API',
         {
             id :  props.unit.id,
@@ -123,7 +124,8 @@ function nullConvert(value) {
                         <div class="widget__group--control">
                               <button class="widget__button" @click="onPump(deviceId, unit.item_id)">Полить</button>
                               <!-- unit.autoMode cange vuex.state variable -->
-                              <Switch :checked="unit.data.autoMode"
+                              <!-- <Switch :checked="!Boolean(unit.data.autoMode)" -->
+                              <Switch :checked="!Boolean(store.state.devicem.devices.data[device_index].items[item_index].data.autoMode)"
                                     @update:checked="(status) => onAutoModClick(status, deviceId, unit.item_id)"
                                     label="Автополив" />
                         </div>
