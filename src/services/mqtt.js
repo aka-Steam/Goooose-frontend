@@ -91,9 +91,9 @@ export function autoModClick(automod, device_chipId, item_addr) {
 	let status = "0"
 	let payload = ~~(item_addr / 256) + ":" + (item_addr % 256);
 	if (automod) {
-		payload +=":automod:1";
+		payload +=":autoMode:1";
 	} else {
-		payload +=":automod:0";
+		payload +=":autoMode:0";
 	}
 
 	let message = new Paho.MQTT.Message(payload);
