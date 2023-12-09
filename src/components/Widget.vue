@@ -1,5 +1,5 @@
 <script setup>
-import {useStore} from 'vuex'
+import { useStore } from 'vuex'
 import { onPump, autoModClick, onHumidityThreshold } from '../services/mqtt'
 import Switch from './Switch.vue'
 import Tooltip from './Tooltip.vue'
@@ -26,15 +26,14 @@ const props = defineProps({
 })
 
 function onAutoModClick(status, device_chipId, item_addr) {
-      console.log("status " + status)
       store.dispatch('devicem/UPDATE_ITEM_FROM_API',
-        {
-            id :  props.unit.id,
-            name : props.unit.name,
-            description : props.unit.description,
-            humidityThreshold: props.unit.data.humidityThreshold>=1?props.unit.data.humidityThreshold:1,
-            autoMode: status
-        })
+            {
+                  id: props.unit.id,
+                  name: props.unit.name,
+                  description: props.unit.description,
+                  humidityThreshold: props.unit.data.humidityThreshold >= 1 ? props.unit.data.humidityThreshold : 1,
+                  autoMode: status
+            })
 
       autoModClick(status, device_chipId, item_addr)
 }
@@ -42,13 +41,13 @@ function onAutoModClick(status, device_chipId, item_addr) {
 
 function automodOff(device_chipId, item_addr) {
       store.dispatch('devicem/UPDATE_ITEM_FROM_API',
-        {
-            id :  props.unit.id,
-            name : props.unit.name,
-            description : props.unit.description,
-            humidityThreshold: props.unit.data.humidityThreshold>=1?props.unit.data.humidityThreshold:1,
-            autoMode: false
-        })
+            {
+                  id: props.unit.id,
+                  name: props.unit.name,
+                  description: props.unit.description,
+                  humidityThreshold: props.unit.data.humidityThreshold >= 1 ? props.unit.data.humidityThreshold : 1,
+                  autoMode: false
+            })
 
       autoModClick(false, device_chipId, item_addr)
 }
@@ -56,34 +55,34 @@ function automodOff(device_chipId, item_addr) {
 function onMoistureThresholdChange(value, device_chipId, item_addr) {
 
       store.dispatch('devicem/UPDATE_ITEM_FROM_API',
-        {
-            id :  props.unit.id,
-            name : props.unit.name,
-            description : props.unit.description,
-            humidityThreshold: value,
-            autoMode: props.unit.data.autoMode
-        })
+            {
+                  id: props.unit.id,
+                  name: props.unit.name,
+                  description: props.unit.description,
+                  humidityThreshold: value,
+                  autoMode: props.unit.data.autoMode
+            })
 
       onHumidityThreshold(value, device_chipId, item_addr)
 }
 
 function onClickEdit(type, id, name, description) {
-    store.state.editable = {
-        type: type,
-        id : id,
-        name: name,
-        description: description,
-        humidityThreshold: props.unit.data.humidityThreshold,//брать из state
-        autoMode: props.unit.data.autoMode
-    }
+      store.state.editable = {
+            type: type,
+            id: id,
+            name: name,
+            description: description,
+            humidityThreshold: props.unit.data.humidityThreshold,
+            autoMode: props.unit.data.autoMode
+      }
 }
 
 function onClickDelete(item_id, item_name) {
-    //Are you sure you want to delete network No. ""?
-    item_name = item_name === null? "" : item_name;
-    if (confirm("Вы уверены, что хотите удалить устройство " + item_name + "?")) {
-      store.dispatch('devicem/DELETE_ITEM_BY_API', item_id);
-    }
+      //Are you sure you want to delete network No. ""?
+      item_name = item_name === null ? "" : item_name;
+      if (confirm("Вы уверены, что хотите удалить устройство " + item_name + "?")) {
+            store.dispatch('devicem/DELETE_ITEM_BY_API', item_id);
+      }
 }
 
 function nullConvert(value) {
@@ -123,13 +122,17 @@ function nullConvert(value) {
                   <div class="widget__group">
                         <div class="widget__group--control">
                               <button class="widget__button" @click="onPump(deviceId, unit.item_id)">Полить</button>
-                              <!-- unit.autoMode cange vuex.state variable -->
-                              <!-- <Switch :checked="!Boolean(unit.data.autoMode)" -->
-                              <Switch :checked="!Boolean(store.state.devicem.devices.data[device_index].items[item_index].data.autoMode)"
-                                    @update:checked="(status) => onAutoModClick(status, deviceId, unit.item_id)"
-                                    label="Автополив" />
+                              
+                              <label class="container">
+                                    <input class="input" type="checkbox" v-model="unit.data.autoMode"
+                                          @change="(event) => onAutoModClick(event.target.checked, deviceId, unit.item_id)" />
+                                    <span class="label">Автополив</span>
+                                    <span class="switch"></span>
+                              </label>
+
                         </div>
-                        <RangeSlider :disabled="false" :elementId="unit.item_id" :modelValue="parseInt(unit.data.humidityThreshold, 10)"
+                        <RangeSlider :disabled="false" :elementId="unit.item_id"
+                              :modelValue="parseInt(unit.data.humidityThreshold, 10)"
                               @update:modelValue="(value) => onMoistureThresholdChange(value, deviceId, unit.item_id)">
                               Порог влажности для начала полива в автоматическом режиме
                         </RangeSlider>
@@ -143,7 +146,8 @@ function nullConvert(value) {
                                           d="M10 3a7 7 0 100 14 7 7 0 000-14zm-9 7a9 9 0 1118 0 9 9 0 01-18 0zm8-4a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1zm.01 8a1 1 0 102 0V9a1 1 0 10-2 0v5z" />
                               </svg>
                         </Tooltip>
-                        <RouterLink to="/home/edit" class="button button--edit" @click="onClickEdit('item', unit.id, unit.name, unit.description)">
+                        <RouterLink to="/home/edit" class="button button--edit"
+                              @click="onClickEdit('item', unit.id, unit.name, unit.description)">
                               <svg class="svg-icon" width="26px" height="26px" viewBox="0 0 26 26" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -162,7 +166,6 @@ function nullConvert(value) {
                   </div>
             </div>
       </article>
-      <!-- {{"di " + device_index + "; ii " +  item_index}} -->
 </template>
 
 <style scoped>
@@ -203,11 +206,12 @@ function nullConvert(value) {
       background-color: var(--color-darck2)
 }
 
-.buttons{
-      display:flex;
+.buttons {
+      display: flex;
       justify-content: flex-end;
       gap: 10px;
 }
+
 .button {
       cursor: pointer;
       padding: 6px;
@@ -254,11 +258,83 @@ function nullConvert(value) {
       fill: var(--color-text);
 }
 
-.costil{
+.costil {
       cursor: pointer;
-      display:inline-block;
+      display: inline-block;
       content: "";
       width: 10px;
       height: 10px;
+}
+
+/* ----------------  Toggle switch  ---------------- */
+
+.container {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+}
+
+.label {
+      margin: 0 12px;
+      color: var(--color-text);
+      white-space: nowrap;
+}
+
+.input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+}
+
+.switch {
+      --switch-container-width: 50px;
+      --switch-size: calc(var(--switch-container-width) / 2);
+      display: flex;
+      align-items: center;
+      position: relative;
+      height: var(--switch-size);
+      flex-basis: var(--switch-container-width);
+      /* Make the container element rounded */
+      border-radius: var(--switch-size);
+      background-color: var(--color-background-dashboard);
+      /* In case the label gets really long, the toggle shouldn't shrink. */
+      flex-shrink: 0;
+      transition: background-color 0.25s ease-in-out;
+}
+
+.switch::before {
+      content: "";
+      position: absolute;
+      /* Move a little bit the inner circle to the right */
+      left: 1px;
+      height: calc(var(--switch-size) - 4px);
+      width: calc(var(--switch-size) - 4px);
+      /* Make the inner circle fully rounded */
+      border-radius: 9999px;
+      background-color: var(--color-darck);
+      border: 2px solid var(--color-text);
+      transition: transform 0.24s ease-in-out;
+}
+
+.input:checked~.switch {
+      background-color: var(--color-accent);
+}
+
+.input:checked~.switch::before {
+      transform: translateX(calc(var(--switch-container-width) - var(--switch-size) + 1px));
+}
+
+@media (max-width:360px) {
+      .container {
+            flex-wrap: wrap;
+      }
+
 }
 </style>
