@@ -1,0 +1,63 @@
+:root {
+  /*Common colors*/
+  --color-light: #FFFFFF;
+  --color-darck:#0F0F0F;
+  --color-darck2: #1F1E2E;
+  --color-accent: #FF7A00;
+  --color-accent2: #D93535;
+
+  /*Layout colors*/
+  --color-background: #FFFFFF;
+  --color-background-header: #FFFFFF;
+  --color-background-footer:#0F0F0F;
+  --color-background-dashboard:#E7E7E7;
+  
+  /*Text colors*/
+  --color-text: #0F0F0F;
+  --color-text-light: #FFFFFF;
+  --color-text-dark: #1F1E2E;
+
+  /*Sidebar colors*/
+  --color-sidebar-background:#FFFFFF;
+  --color-sidebar-middleground :#CECDD2;
+  --color-sidebar-foreground:#FFFFFF;
+  --color-sidebar-active:#1F1E2E; 
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #2A2939;/*this is a test version*/
+    --color-background-header: #0F0F0F;
+    --color-background-dashboard:#2A2939;
+
+    --color-text: #FFFFFF;
+
+    --color-sidebar-background:#1F1E2E;
+    --color-sidebar-middleground :#3A3948;
+    --color-sidebar-foreground:#0F0F0F;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 3px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
