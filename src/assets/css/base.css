@@ -22,6 +22,10 @@
   --color-sidebar-middleground :#CECDD2;
   --color-sidebar-foreground:#FFFFFF;
   --color-sidebar-active:#1F1E2E; 
+
+  /*Sizes*/
+  --header-height: 70px
+
 }
 
 @media (prefers-color-scheme: dark) {
