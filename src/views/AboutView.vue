@@ -9,7 +9,7 @@ import FooterComp from '../components/Footer.vue';
                   <h1 class="h1">Goooose - проект, связаный с LoRa сетями</h1>
                   <span class="year">Был создан студентами в лохматом году...</span>
             </div>
-            <img class="img" src="../assets/images/goosiRuns.png" alt="Geese are running" align="left" >
+            <img class="img" src="../assets/images/GoosiRuns.png" alt="Geese are running" align="left" >
             <p class="p">История нашего проекта начинается с группы преданных студентов, которые разделяли общую
                   страсть к новейшим технологиям и убеждение в их потенциале изменить мир. Одним из таких
                   потенциально преобразующих технологий была LoRa (Long Range) - передовая технология беспроводной
