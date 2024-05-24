@@ -8,12 +8,12 @@
       <main class="main">
             <h2 class="h2">Голавные устройства:</h2>
             <div class="shop-section">
-                  <Card :name="'G-1'" :img_src="'../src/assets/images/golovnoe1.png'" :price="1599" />
-                  <Card :name="'G-0'" :img_src="'../src/assets/images/golovnoe0.jpg'" :price="1999" />
+                  <Card :name="'G-1'" :img_src="'https://i.postimg.cc/W1CtVFQt/golovnoe1.png'" :price="1599" />
+                  <Card :name="'G-0'" :img_src="'https://i.postimg.cc/CLvzv67G/golovnoe0.jpg'" :price="1999" />
             </div>
             <h2 class="h2">Оконечные устройства:</h2>
             <div class="shop-section">
-                  <Card :name="'t1'" :img_src="'../src/assets/images/okonechnoe.jpg'" :price="2199" />
+                  <Card :name="'t1'" :img_src="'https://i.postimg.cc/8zjsxBXq/okonechnoe.jpg'" :price="2199" />
                   <Card :price="2199" />
             </div>
       </main>

@@ -66,7 +66,7 @@ function nullConvert(value){
         <section class="dashboard-content">
             <HeaderRoute>Главная</HeaderRoute>
             <div class="devices-space">
-                <div v-if="DEVICES != null" v-for="(device, index) in DEVICES.data" :key="device.id">
+                <div v-if="DEVICES.data.length > 0" v-for="(device, index) in DEVICES.data" :key="device.id">
                     <div class="device" @click="openItems[index] = !openItems[index]">
                         <div class="device__index">{{ index + 1 }}</div>
                         <div class="device__splitter">|</div>
@@ -108,6 +108,7 @@ function nullConvert(value){
                         </div>
                     </div>
                 </div>
+                <div v-else class="stub">У вас пока нет устройств</div>
             </div>
         </section>
     </main>
