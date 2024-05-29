@@ -34,7 +34,7 @@
                   </div>
             </div>
             <div class="footer__container">
-                  <div class="copyright">© Goooose inc. 2023</div>
+                  <div class="copyright">© Goooose inc. 2023-2024</div>
             </div>
       </footer>
 </template>
