@@ -6,9 +6,8 @@ const URL_ApiDoc = import.meta.env.VITE_API_URL_DOCUMENTATION
 <template>
       <HeaderComp />    
       <main class="main">
-            <!-- <div style="margin: 20px; text-align: center; color:var(--color-text);">Documentation page</div>
-            <hr> -->
             <section class="doc-container">
+                  <a href="src/assets/files/РуководствоПользователя.pdf" target="_blanck" class="doc-item">Руководство пользователя</a>
                   <a :href="URL_ApiDoc" target="_blanck" class="doc-item">Документация к API</a>
             </section>
       </main>
@@ -16,6 +15,7 @@ const URL_ApiDoc = import.meta.env.VITE_API_URL_DOCUMENTATION
 </template>
 
 <style scoped>
+
 .doc-container {
       margin: 0 auto;
       padding: 24px 12px;
@@ -24,7 +24,7 @@ const URL_ApiDoc = import.meta.env.VITE_API_URL_DOCUMENTATION
       как не быть тупым */
       display: flex;
       justify-content: center;
-
+      flex-wrap: wrap;
       gap: 16px;
 }
 
