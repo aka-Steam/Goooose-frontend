@@ -34,6 +34,9 @@ export const devicem = {
     DELETE_DEVICES_BY_API({ commit }, id) { 
       return DeviceService.deleteDevice(id)
     },
+    CONTROL_DEVICES_BY_API({ commit }, params) {
+      return DeviceService.controlDevice(params.chip_id, params.action)
+    },
     // Actions with device items 
     UPDATE_ITEM_FROM_API({ commit }, item) { 
       return DeviceItemsService.putDeviceItem(item)
@@ -47,7 +50,6 @@ export const devicem = {
     SET_DEVICES_TO_STATE: (state, devices) => {
       state.devices = devices;
     },
-
 
   },
   getters: {

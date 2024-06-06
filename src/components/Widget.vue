@@ -25,6 +25,11 @@ const props = defineProps({
       }
 })
 
+function generateAction(item_addr, interfaceMqtt, value){
+      return ~~(item_addr / 256) + ":" + (item_addr % 256) + ":" + interfaceMqtt + ":" + value;
+}
+
+
 function onAutoModClick(status, device_chipId, item_addr) {
       store.dispatch('devicem/UPDATE_ITEM_FROM_API',
             {
@@ -35,7 +40,13 @@ function onAutoModClick(status, device_chipId, item_addr) {
                   autoMode: status
             })
 
-      autoModClick(status, device_chipId, item_addr)
+      // autoModClick(status, device_chipId, item_addr)
+
+      store.dispatch('devicem/CONTROL_DEVICES_BY_API', 
+            {
+                  chip_id: props.deviceId,
+                  action: generateAction(item_addr, "autoMode", status)
+            })
 }
 
 
@@ -49,7 +60,13 @@ function automodOff(device_chipId, item_addr) {
                   autoMode: false
             })
 
-      autoModClick(false, device_chipId, item_addr)
+      //autoModClick(false, device_chipId, item_addr)
+
+      store.dispatch('devicem/CONTROL_DEVICES_BY_API', 
+            {
+                  chip_id: props.deviceId,
+                  action: generateAction(item_addr, "autoMode", false)
+            })
 }
 
 function onMoistureThresholdChange(value, device_chipId, item_addr) {
@@ -63,7 +80,22 @@ function onMoistureThresholdChange(value, device_chipId, item_addr) {
                   autoMode: props.unit.data.autoMode
             })
 
-      onHumidityThreshold(value, device_chipId, item_addr)
+      // onHumidityThreshold(value, device_chipId, item_addr)
+
+      store.dispatch('devicem/CONTROL_DEVICES_BY_API', 
+            {
+                  chip_id: props.deviceId,
+                  action: generateAction(item_addr, "soilHumTreshold", value)
+            })
+}
+
+
+function onPumpAPI(item_addr){
+      store.dispatch('devicem/CONTROL_DEVICES_BY_API', 
+            {
+                  chip_id: props.deviceId,
+                  action: generateAction(item_addr, "pump", "on")
+            })
 }
 
 function onClickEdit(type, id, name, description) {
@@ -73,7 +105,8 @@ function onClickEdit(type, id, name, description) {
             name: name,
             description: description,
             humidityThreshold: props.unit.data.humidityThreshold,
-            autoMode: props.unit.data.autoMode
+            //autoMode: props.unit.data.autoMode
+            autoMode: (props.unit.data.autoMode === 'true')
       }
 }
 
@@ -121,7 +154,7 @@ function nullConvert(value) {
                   <hr>
                   <div class="widget__group">
                         <div class="widget__group--control">
-                              <button class="widget__button" @click="onPump(deviceId, unit.item_id)">Полить</button>
+                              <button class="widget__button" @click="onPumpAPI(unit.item_id)">Полить</button>
                               
                               <label class="container">
                                     <input class="input" type="checkbox" v-model="unit.data.autoMode"
