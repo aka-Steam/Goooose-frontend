@@ -35,7 +35,7 @@ export function startConnect() {
 		onSuccess: onConnect,
 		userName: user,
 		password: pass,
-		useSSL: false
+		useSSL: true
 	});
 }
 
@@ -70,6 +70,11 @@ function onMessageArrived(message) {
 	if (message.destinationName == topic_test) {
 		colsole.log("Wonderfully! Test data: " + message.payloadString );
 	}
+
+	
+	document.getElementById('mqtt-indicator').classList.remove('conected');
+
+	setTimeout(() => document.getElementById('mqtt-indicator').classList.add('conected'), 300);
 }
 
 // Вызывается при нажатии кнопки отключения

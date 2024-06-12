@@ -65,3 +65,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Fix a bug with the Zotero extension */
+script + iframe{
+  position: absolute
+}

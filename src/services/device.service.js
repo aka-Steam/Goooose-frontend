@@ -38,6 +38,10 @@ class DeviceService {
   deleteDevice(id){
     return axios.delete(API_URL + "/" + id,{headers: authHeader()})
   }
+
+  controlDevice(chip_id, action){
+    return axios.post(API_URL + "/" + chip_id + "/control",{action : action},{headers: authHeader()})
+  }
 }
 
 export default new DeviceService();
