@@ -48,7 +48,9 @@ onBeforeUnmount(()=>{
                   </div>
 
                   <div class="sidebar-menu__middleground">
-                        <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div>
+                        <!-- <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div> -->
+                        <div id="mqtt-indicator" class="mqtt-indicator connect"></div>
+                        
                         <nav class="nav">
                               <ul class="nav__list">
                                     <li class="nav__list-item">
@@ -146,7 +148,8 @@ onBeforeUnmount(()=>{
                               </RouterLink>
                               
                         </div>
-                        <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div>
+                        <!-- <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div> -->
+                        <div id="mqtt-indicator" class="mqtt-indicator connect"></div>
             </div>
 
             <div class="bottom">

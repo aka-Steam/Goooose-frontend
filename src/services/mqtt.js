@@ -35,7 +35,7 @@ export function startConnect() {
 		onSuccess: onConnect,
 		userName: user,
 		password: pass,
-		useSSL: true
+		useSSL: false
 	});
 }
 

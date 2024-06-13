@@ -21,10 +21,17 @@ export const devicem = {
     SET_DEVICES_BY_API({ commit }, chip_id) { 
       return DeviceService.setDevice(chip_id).then(
         response => {
-          if (response.status == 200 && !(localStorage.getItem("chip_id") === null)) {
+          if (response.status == 201 && !(localStorage.getItem("chip_id") === null)) {
             localStorage.removeItem("chip_id");
-          }
-        }
+          } 
+        },
+        error => {
+          if (error.response.status == 422 && !(localStorage.getItem("chip_id") === null)) {
+            let cid = localStorage.getItem("chip_id")
+            alert(`Главное устройство с chip_id ${cid} уже добавлено.\nНельзя повторно добавить одно и то же устройство.`);
+            localStorage.removeItem("chip_id");
+          } 
+         } 
       )
     },
     GET_DEVICE_FROM_API({ commit }, id) { },

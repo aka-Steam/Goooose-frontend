@@ -53,7 +53,7 @@ export default {
             if (!(localStorage.getItem("chip_id") === null)) {
                   this.$store.dispatch('devicem/SET_DEVICES_BY_API', localStorage.getItem("chip_id"));
             }
-                  
+
             this.$router.push("/home");
       }
   },

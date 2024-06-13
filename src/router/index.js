@@ -10,6 +10,10 @@ const router = createRouter({
       component: LendingView
     },
     {
+      path: '/:pathMatch(.*)*',
+      redirect: '/'
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
