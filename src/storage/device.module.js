@@ -15,6 +15,9 @@ export const devicem = {
         devices => {
           commit('SET_DEVICES_TO_STATE', devices);
           return Promise.resolve(devices);
+        },
+        error => {
+          return Promise.resolve(error);
         }
       );
     },

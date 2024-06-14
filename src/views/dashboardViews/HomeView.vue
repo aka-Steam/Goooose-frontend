@@ -4,9 +4,11 @@ import Menu from '../../components/SidebarMenu.vue'
 import Tooltip from '../../components/Tooltip.vue'
 import { useStore } from 'vuex'
 import { mapGetters, mapActions } from '../../storage/map-state'
+import { useRouter } from 'vue-router'
 import HeaderRoute from '../../components/HeaderRoute.vue'
 import Widget from '../../components/Widget.vue'
 
+const router = useRouter()
 const store = useStore()
 const openItems = ref([]) // не знаю как это работает без заполнения, но работает ¯\_(ツ)_/¯ 
 //openItems.value = new Array(store.state.devices.length).fill(false); // пример заполнения
@@ -22,7 +24,19 @@ onMounted(() => {
         if (store.state.auth.status.loggedIn == false) {
             clearInterval(autoreloadIntervalID);
         };
-        store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(console.log('Data arrived from home page!'));
+
+        store.dispatch('devicem/GET_ALL_DEVICES_FROM_API').then(obj => {
+            if (obj["data"] !== undefined){
+                console.log('Data success arrived from Home page!')
+            }
+            // No data received. The obj is an error
+            else if (obj.response.status == 500 && obj.response.data.message == "Token has expired") {
+                console.log("LOGOUT. Token has expired")
+                store.dispatch('auth/logout');
+                localStorage.removeItem("user");// Костыль. Потому что не отрабатывает logout() из-за за устаревшего токена
+                router.push('/login');
+            }            
+        });
     }, 3000);
 })
 

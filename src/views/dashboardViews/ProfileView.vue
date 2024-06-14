@@ -21,7 +21,7 @@ export default {
   methods: {
     logOut() {
       this.$store.dispatch('auth/logout');
-      localStorage.clear();
+      localStorage.removeItem("user");// костыль. Потому что не отрабатывает logout() из-за за устаревшего токена
       this.$router.push('/login');
     }
   }

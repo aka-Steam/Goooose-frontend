@@ -36,7 +36,7 @@ class AuthService {
       .post(API_URL + 'logout', null, {headers: authHeader()})
       .then((res) => {
         console.log("RESPONSE RECEIVED: ", res);
-        localStorage.clear();
+        localStorage.removeItem("user");
       })
       .catch((err) => {
         console.log("AXIOS ERROR: ", err);

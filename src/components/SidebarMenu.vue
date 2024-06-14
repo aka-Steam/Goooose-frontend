@@ -49,7 +49,7 @@ onBeforeUnmount(()=>{
 
                   <div class="sidebar-menu__middleground">
                         <!-- <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div> -->
-                        <div id="mqtt-indicator" class="mqtt-indicator connect"></div>
+                        <div id="mqtt-indicator" class="mqtt-indicator conected"></div>
                         
                         <nav class="nav">
                               <ul class="nav__list">
@@ -149,7 +149,7 @@ onBeforeUnmount(()=>{
                               
                         </div>
                         <!-- <div id="mqtt-indicator" class="mqtt-indicator" @click="startConnect"></div> -->
-                        <div id="mqtt-indicator" class="mqtt-indicator connect"></div>
+                        <div id="mqtt-indicator" class="mqtt-indicator conected"></div>
             </div>
 
             <div class="bottom">

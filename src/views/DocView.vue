@@ -7,7 +7,7 @@ const URL_ApiDoc = import.meta.env.VITE_API_URL_DOCUMENTATION
       <HeaderComp />    
       <main class="main">
             <section class="doc-container">
-                  <a href="src/assets/files/РуководствоПользователя.pdf" target="_blanck" class="doc-item">Руководство пользователя</a>
+                  <a href="https://disk.yandex.ru/i/kyykLtiHtBJs4w" target="_blanck" class="doc-item">Руководство пользователя</a>
                   <a :href="URL_ApiDoc" target="_blanck" class="doc-item">Документация к API</a>
             </section>
       </main>

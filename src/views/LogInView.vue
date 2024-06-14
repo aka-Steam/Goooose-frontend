@@ -50,6 +50,7 @@ export default {
       }
 
       if (this.loggedIn) {
+            // Добавляем главное устройство, если пользователь уже авторизирован
             if (!(localStorage.getItem("chip_id") === null)) {
                   this.$store.dispatch('devicem/SET_DEVICES_BY_API', localStorage.getItem("chip_id"));
             }
@@ -64,7 +65,11 @@ export default {
 
       this.$store.dispatch("auth/login", user).then(
         () => {
-          this.$router.push("/home");
+            // Добавляем главное устройство, сразу после авторизации
+            if (!(localStorage.getItem("chip_id") === null)) {
+                  this.$store.dispatch('devicem/SET_DEVICES_BY_API', localStorage.getItem("chip_id"));
+            }
+            this.$router.push("/home");
         },
         (error) => {
           this.loading = false;
