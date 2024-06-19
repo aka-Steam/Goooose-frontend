@@ -85,7 +85,7 @@ function onMoistureThresholdChange(value, device_chipId, item_addr) {
       store.dispatch('devicem/CONTROL_DEVICES_BY_API', 
             {
                   chip_id: props.deviceId,
-                  action: generateAction(item_addr, "soilHumTreshold", value)
+                  action: generateAction(item_addr, "soilHumThreshold", value)
             })
 }
 

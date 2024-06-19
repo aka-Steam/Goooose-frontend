@@ -32,7 +32,7 @@ window.onload = function () {
             <section class="screenshot-space">
                   <div class="screenshot-space__container">
                         <div class="text-block">
-                              <h3 class="screenshot-space__label">Управляйте устройствами и следите заих состоянием на панели
+                              <h3 class="screenshot-space__label">Управляйте устройствами и следите за их состоянием на панели
                                     управления</h3>
                               <div class="polygon pr"></div>
                         </div>
@@ -201,7 +201,7 @@ window.onload = function () {
       background-repeat: no-repeat;
       background-position: bottom;
       background-size: contain;
-      z-index: 999;
+      z-index: 99;
 }
 
 

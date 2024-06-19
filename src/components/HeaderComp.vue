@@ -121,10 +121,11 @@ function burgerClick() {
 
       .logo {
             width: 220px;
+            margin-right: 10px;
       }
 
       .authorisation__link--sign-up {
-            margin: 0 14px;
+            margin: 0 10px;
       }
 }
 
@@ -135,11 +136,11 @@ function burgerClick() {
 
       .header__container {
             height: 60px;
-            margin: 0 12px;
+            margin: 0 10px;
       }
 
       .logo {
-            width: 134px;
+            width: 128px;
       }
 
       .authorisation__link--sign-up {
