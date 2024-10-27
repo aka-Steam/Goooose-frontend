@@ -5,7 +5,7 @@
                   <div class="contact">
                         <div class="contact__text-container">
                               <span class="contact__title">Связаться с нами</span>
-                              <span class="contact__mail">support@goooose.com</span>
+                              <span class="contact__mail">custeam@mail.ru</span>
                         </div>
                         <div class="contact__icons">
                               <a href="https://mail.ru" class="icon-link" target="_blank">
